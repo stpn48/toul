@@ -1,8 +1,16 @@
+"use client";
+
+import { useModalVisibility } from "@/store/useModalVisiblity";
 import React from "react";
 
 export default function CreateWorkoutButton() {
+  const { setShowCreateWorkoutModal } = useModalVisibility();
+
   return (
-    <button className="flex items-center gap-2 hover:text-[#454545]">
+    <button
+      onClick={() => setShowCreateWorkoutModal(true)}
+      className="flex items-center gap-2 hover:text-[#454545]"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

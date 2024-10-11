@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-shadow {
+  @apply shadow-2xl; /* Use Tailwind's shadow utilities */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Customize the shadow as needed */
+}

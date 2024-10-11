@@ -6,7 +6,6 @@ import { useSidebarVisibility } from "../use-sidebar-visibility";
 
 type Props = {
   children: React.ReactNode;
-
   className?: string;
 };
 

@@ -11,7 +11,7 @@ export function ToggleSidebarButton() {
     <button
       onClick={() => setShowSidebar((prev) => !prev)}
       className={twMerge(
-        "dark:text-secondary-text-dark ease absolute right-4 top-4 text-black transition-all duration-[300ms] hover:text-[#454545] dark:hover:text-white",
+        "ease absolute right-4 top-4 text-black transition-all duration-[300ms] hover:text-[#454545] dark:text-secondary-text-dark dark:hover:text-white",
         !showSidebar && "-right-10",
       )}
     >
@@ -24,9 +24,9 @@ export function ToggleSidebarButton() {
       >
         <path
           fill="currentColor"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M19 4.001H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-12a2 2 0 0 0-2-2Zm-15 2a1 1 0 0 1 1-1h4v14H5a1 1 0 0 1-1-1v-12Zm6 13h9a1 1 0 0 0 1-1v-12a1 1 0 0 0-1-1h-9v14Z"
-          clip-rule="evenodd"
+          clipRule="evenodd"
         ></path>
       </svg>
     </button>

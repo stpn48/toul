@@ -8,8 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      borderColor: {
+        main: "#797979",
+      },
+      fontFamily: {
+        geistSans: ["var(--font-geist-sans)", "monospace"],
+      },
+      textColor: {
+        secondary: "#797979",
+      },
+      backgroundColor: {
+        dark: "#131313",
+      },
       colors: {
-        "secondary-text-dark": "#454545",
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
