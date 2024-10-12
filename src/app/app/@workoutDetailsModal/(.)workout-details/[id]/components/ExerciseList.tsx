@@ -16,7 +16,7 @@ export function ExerciseList({ workoutId }: Props) {
 
   useEffect(() => {
     setExercises(optimisticExercises.filter((exercise) => exercise.workoutId === workoutId));
-  }, [optimisticExercises]);
+  }, [optimisticExercises, workoutId]);
 
   return (
     <div className="mt-10 flex flex-wrap gap-4">
