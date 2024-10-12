@@ -16,7 +16,7 @@ type Props = {
 };
 
 export function WorkoutDetailsModal({ workout }: Props) {
-  const { showCreateExerciseModal, showEditExerciseModal } = useModalVisibility();
+  const { showCreateExerciseModal, editingExerciseId } = useModalVisibility();
   const router = useRouter();
 
   return (
@@ -30,7 +30,7 @@ export function WorkoutDetailsModal({ workout }: Props) {
       </section>
 
       {showCreateExerciseModal && <CreateExerciseModal workoutId={workout.id} />}
-      {showEditExerciseModal && <EditExerciseModal workoutId={workout.id} />}
+      {editingExerciseId && <EditExerciseModal exerciseId={editingExerciseId} />}
     </Modal>
   );
 }
