@@ -19,9 +19,11 @@ export const metadata: Metadata = {
 export default async function AppLayout({
   children,
   workoutDetailsModal,
+  editExerciseModal,
 }: {
   children: React.ReactNode;
   workoutDetailsModal: React.ReactNode; // Make the modal prop optional
+  editExerciseModal: React.ReactNode;
 }) {
   const user = await getUser();
 
@@ -53,6 +55,7 @@ export default async function AppLayout({
       <PageContainer>
         {children}
         {workoutDetailsModal}
+        {editExerciseModal}
         <SignOutButton />
         <CreateWorkoutModal />
       </PageContainer>
