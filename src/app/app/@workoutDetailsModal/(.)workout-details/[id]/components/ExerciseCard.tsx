@@ -1,5 +1,6 @@
 "use client";
 
+import { useModalVisibility } from "@/store/useModalVisiblity";
 import { ExerciseWithSets } from "@/types/types";
 import React from "react";
 
@@ -8,9 +9,13 @@ type Props = {
 };
 
 export function ExerciseCard({ exercise }: Props) {
- 
+  const { setEditingExerciseId } = useModalVisibility();
+
   return (
-    <div className="flex w-full cursor-pointer rounded-lg border p-5 hover:border-amber-500">
+    <div
+      onClick={() => setEditingExerciseId(exercise.id)}
+      className="flex w-full cursor-pointer rounded-lg border p-5 hover:border-amber-500"
+    >
       <div className="flex w-[40%] flex-col">
         <h1 className="text-base">{exercise.name}</h1>
         <p className="text-secondary">{exercise.description}</p>
