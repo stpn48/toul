@@ -14,14 +14,15 @@ datasource db {
 }
 
 model Workout {
-  id                String   @id @default(uuid())
-  createdAt         DateTime @default(now())
-  timesCompleted    Int      @default(0)
+  id                String     @id @default(uuid())
+  createdAt         DateTime   @default(now())
+  timesCompleted    Int        @default(0)
   userId            String // The userId of the user who created the workout
   name              String
   description       String?
   difficulty        String
   estimatedDuration String
+  exercises         Exercise[]
 }
 
 model Exercise {
@@ -32,4 +33,16 @@ model Exercise {
   workoutId      String // Id of the workout this exercise belongs to
   name           String
   description    String?
+  workout        Workout  @relation(fields: [workoutId], references: [id])
+  sets           Set[]
+  userId         String
+}
+
+model Set {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  name       String
+  targetReps Int
+  exerciseId String
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
 }
