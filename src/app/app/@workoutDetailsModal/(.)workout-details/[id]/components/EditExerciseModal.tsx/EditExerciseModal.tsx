@@ -15,9 +15,10 @@ import { CreateExercise, CreateSet } from "@/types/types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { EditSetModal, TrashIcon } from "../EditSetModal";
+import { EditSetModal } from "../EditSetModal";
 import { EditExerciseButton } from "./EditExerciseButton";
 import { LoadingSkeleton } from "./LoadingSkeleton";
+import { RemoveExerciseButton } from "./removeExerciseButton";
 
 type Props = {
   exerciseId: string | null;
@@ -152,15 +153,13 @@ export function EditExerciseModal({ exerciseId }: Props) {
         <CreateExerciseModalHeader />
         <SetList exerciseSets={exerciseSets} setEditingSetIndex={setEditingSetIndex} />
         <div className="absolute bottom-4 right-4 flex gap-3">
-          {/* TODO: Make more readable */}
-          <button className="" onClick={handleRemoveExercise}>
-            <TrashIcon />
-          </button>
+          <RemoveExerciseButton handleRemoveExercise={handleRemoveExercise} />
           <EditExerciseButton handleEditExercise={handleEditExercise} />
         </div>
       </section>
 
       {showCreateSetModal && <AddSetModal setExerciseSets={setExerciseSets} />}
+
       {editingSetIndex !== null && (
         <EditSetModal
           closeModal={() => setEditingSetIndex(null)}
