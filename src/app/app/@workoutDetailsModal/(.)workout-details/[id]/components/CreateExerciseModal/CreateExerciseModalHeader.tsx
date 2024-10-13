@@ -3,15 +3,18 @@
 import { useModalVisibility } from "@/store/useModalVisiblity";
 import React from "react";
 
-type Props = {};
+type Props = {
+  loading?: boolean;
+};
 
-export default function CreateExerciseModalHeader({}: Props) {
+export default function CreateExerciseModalHeader({ loading }: Props) {
   const { setShowCreateSetModal } = useModalVisibility();
 
   return (
     <div className="flex w-full items-center justify-between pr-5">
       <h1 className="text-xs font-bold text-secondary">SETS</h1>
       <button
+        disabled={loading}
         onClick={() => setShowCreateSetModal(true)}
         className="flex items-center justify-center gap-2 rounded-full bg-amber-500 px-2 py-1 pr-3 text-white"
       >
