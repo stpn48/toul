@@ -1,14 +1,17 @@
+"use client";
+
 import { CreateSet } from "@/types/types";
 import React from "react";
 
 type Props = {
   set: CreateSet;
+  onClick: () => void;
 };
 
-export function SetCard({ set }: Props) {
+export function SetCard({ set, onClick }: Props) {
   return (
     <>
-      <div className="flex justify-between bg-white px-4 text-xs font-bold text-secondary">
+      <div onClick={onClick} className="flex cursor-pointer justify-between bg-white px-4 text-xs font-bold text-secondary">
         <h1>{set.name}</h1>
         <p>{set.targetReps} reps</p>
       </div>
