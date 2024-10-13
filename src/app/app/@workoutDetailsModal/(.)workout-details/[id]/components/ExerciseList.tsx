@@ -19,13 +19,13 @@ export function ExerciseList({ workoutId }: Props) {
   }, [optimisticExercises, workoutId]);
 
   return (
-    <div className="mt-10 flex flex-wrap gap-4">
-      {exercises.length === 0 && (
-        <p className="flex w-full justify-center text-xs text-secondary">No exercises yet...</p>
-      )}
-      {exercises.map((exercise) => (
-        <ExerciseCard key={exercise.id} exercise={exercise} />
-      ))}
+    <div className="mt-10 h-[90%] gap-4 overflow-y-auto">
+      <div className="flex flex-col gap-4">
+        {exercises.length === 0 && <p className="flex w-full justify-center text-xs text-secondary">No exercises yet...</p>}
+        {exercises.map((exercise) => (
+          <ExerciseCard key={exercise.id} exercise={exercise} />
+        ))}
+      </div>
     </div>
   );
 }
