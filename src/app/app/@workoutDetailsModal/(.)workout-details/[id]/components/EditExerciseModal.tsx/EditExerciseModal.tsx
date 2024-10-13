@@ -1,23 +1,23 @@
 "use client";
 
-import { getExerciseDetails } from "@/app/actions/getExerciseDetails";
+import { removeExercise } from "@/app/actions/removeExercise";
 import { updateExercise } from "@/app/actions/updateExercise";
 import { AddSetModal } from "@/app/app/@workoutDetailsModal/(.)workout-details/[id]/components/CreateExerciseModal/AddSetModal";
 import CreateExerciseModalHeader from "@/app/app/@workoutDetailsModal/(.)workout-details/[id]/components/CreateExerciseModal/CreateExerciseModalHeader";
 import { SetList } from "@/app/app/@workoutDetailsModal/(.)workout-details/[id]/components/CreateExerciseModal/SetList";
+import { ConfirmationModal } from "@/components/ConfirmationModal";
 import Input from "@/components/Input";
 import { Modal } from "@/components/Modal";
 import { useOptimisticWorkouts } from "@/context/useOptimisticWorkouts";
+import { useExerciseDetails } from "@/hooks/useExerciseDetails";
 import { useModalVisibility } from "@/store/useModalVisiblity";
-import { CreateExercise, CreateSet, ExerciseWithSets } from "@/types/types";
-import prisma from "@/utils/prisma";
-import { useQuery } from "@tanstack/react-query";
-import { setServers } from "dns";
-import { useRouter } from "next/navigation";
+import { CreateExercise, CreateSet } from "@/types/types";
+import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { v4 as uuidv4 } from "uuid";
+import { EditSetModal, TrashIcon } from "../EditSetModal";
 import { EditExerciseButton } from "./EditExerciseButton";
+import { LoadingSkeleton } from "./LoadingSkeleton";
 
 type Props = {
   exerciseId: string | null;
@@ -25,22 +25,33 @@ type Props = {
 
 export function EditExerciseModal({ exerciseId }: Props) {
   const { showCreateSetModal, setEditingExerciseId } = useModalVisibility();
-  const { updateOptimisticExercise } = useOptimisticWorkouts();
-  // TODO: move ths query into separate hook
-  const {
-    data: exercise,
-    isLoading,
-    isSuccess,
-  } = useQuery({
-    queryKey: ["exercise", { exerciseId }],
-    queryFn: () => getExerciseDetails(exerciseId || ""),
-  });
+  const { updateOptimisticExercise, removeOptimisticExercise } = useOptimisticWorkouts();
 
-  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const { data: exercise, isLoading, isFetching, isRefetching, isSuccess } = useExerciseDetails(exerciseId);
 
   const [exerciseName, setExerciseName] = useState<string | null>(null);
   const [exerciseDescription, setExerciseDescription] = useState<string | null>(null);
   const [exerciseSets, setExerciseSets] = useState<CreateSet[]>([]);
+
+  const [editingSetIndex, setEditingSetIndex] = useState<number | null>(null);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const { madeChanges } = useMadeChanges(
+    exercise?.name || "",
+    exercise?.description || "",
+    exercise?.sets || [],
+    exerciseName,
+    exerciseDescription,
+    exerciseSets,
+  );
+
+  const resetForm = useCallback(() => {
+    setExerciseName("");
+    setExerciseDescription(null);
+    setExerciseSets([]);
+  }, [setExerciseName, setExerciseDescription, setExerciseSets]);
 
   const handleEditExercise = useCallback(async () => {
     if (!exercise) {
@@ -58,26 +69,9 @@ export function EditExerciseModal({ exerciseId }: Props) {
       sets: exerciseSets,
     };
 
-    const optimisticExercise: ExerciseWithSets = {
-      workoutId: exercise.workoutId,
-      userId: exercise.userId,
-      sets: exerciseSets.map((set) => ({
-        name: set.name,
-        targetReps: set.targetReps,
-        exerciseId: exercise.id,
-        id: uuidv4(),
-        createdAt: new Date(),
-      })),
-      id: exercise.id,
-      createdAt: exercise.createdAt,
-      repHistory: exercise.repHistory,
-      timesCompleted: exercise.timesCompleted,
-      description: exerciseDescription,
-      name: exerciseName,
-    };
+    updateOptimisticExercise(exercise.id, exerciseName, exerciseDescription, exerciseSets);
 
-    updateOptimisticExercise(optimisticExercise, exercise.id);
-
+    // close modal
     setEditingExerciseId(null);
 
     // add exercise to workout in db
@@ -87,13 +81,38 @@ export function EditExerciseModal({ exerciseId }: Props) {
     if (error) {
       toast.error(error);
 
-      // no error, reset state
+      // no error
     } else {
-      setExerciseName("");
-      setExerciseDescription(null);
-      setExerciseSets([]);
+      // invalidate query
+      queryClient.invalidateQueries({ queryKey: ["exercise", { exerciseId }] });
+      resetForm();
     }
-  }, [exerciseName, exerciseSets, exerciseDescription, exercise, updateOptimisticExercise]);
+  }, [exerciseName, exerciseSets, exerciseDescription, exercise, updateOptimisticExercise, queryClient]);
+
+  const handleRemoveExercise = useCallback(async () => {
+    if (!exerciseId) {
+      return;
+    }
+
+    removeOptimisticExercise(exerciseId);
+
+    setEditingExerciseId(null);
+
+    const { error } = await removeExercise(exerciseId);
+
+    if (error) {
+      toast.error(error);
+      return;
+    }
+  }, [exerciseId, removeOptimisticExercise]);
+
+  const handleCloseModal = useCallback(() => {
+    if (madeChanges) {
+      setShowConfirmationModal(true);
+    } else {
+      setEditingExerciseId(null);
+    }
+  }, [madeChanges]);
 
   useEffect(() => {
     if (!isSuccess) {
@@ -104,15 +123,12 @@ export function EditExerciseModal({ exerciseId }: Props) {
     setExerciseSets(exercise?.sets || []);
   }, [isSuccess, exercise]);
 
-  if (isLoading) {
-    return <div>loading...</div>; //TODO: Add skeleton
+  if (isLoading || isFetching || isRefetching) {
+    return <LoadingSkeleton />;
   }
 
   return (
-    <Modal
-      className="flex h-[70%] w-[70%] flex-row text-sm"
-      closeModal={() => setEditingExerciseId(null)}
-    >
+    <Modal className="flex h-[70%] w-[70%] flex-row text-sm" closeModal={handleCloseModal}>
       <section className="w-[30%] rounded-l-lg bg-[#faf8f6] p-6">
         <Input
           disableLabel
@@ -134,11 +150,58 @@ export function EditExerciseModal({ exerciseId }: Props) {
 
       <section className="flex-grow p-4">
         <CreateExerciseModalHeader />
-        <SetList exerciseSets={exerciseSets} />
-        <EditExerciseButton handleEditExercise={handleEditExercise} />
+        <SetList exerciseSets={exerciseSets} setEditingSetIndex={setEditingSetIndex} />
+        <div className="absolute bottom-4 right-4 flex gap-3">
+          {/* TODO: Make more readable */}
+          <button className="" onClick={handleRemoveExercise}>
+            <TrashIcon />
+          </button>
+          <EditExerciseButton handleEditExercise={handleEditExercise} />
+        </div>
       </section>
 
       {showCreateSetModal && <AddSetModal setExerciseSets={setExerciseSets} />}
+      {editingSetIndex !== null && (
+        <EditSetModal
+          closeModal={() => setEditingSetIndex(null)}
+          setExerciseSets={setExerciseSets}
+          editingSetIndex={editingSetIndex}
+          setDetails={exerciseSets[editingSetIndex]}
+        />
+      )}
+
+      {showConfirmationModal && (
+        <ConfirmationModal
+          message="Are you sure you want to discard all changes?"
+          closeModal={() => setShowConfirmationModal(false)}
+          confirmAction={() => setEditingExerciseId(null)}
+        />
+      )}
     </Modal>
   );
+}
+
+function useMadeChanges(
+  initialExerciseName: string,
+  initialExerciseDescription: string | null,
+  initialExerciseSets: CreateSet[],
+  exerciseName: string | null,
+  exerciseDescription: string | null,
+  exerciseSets: CreateSet[],
+) {
+  const [madeChanges, setMadeChanges] = useState(false);
+
+  useEffect(() => {
+    if (
+      initialExerciseName !== exerciseName ||
+      initialExerciseDescription !== exerciseDescription ||
+      initialExerciseSets.length !== exerciseSets.length
+    ) {
+      setMadeChanges(true);
+    } else {
+      setMadeChanges(false);
+    }
+  }, [initialExerciseName, initialExerciseDescription, initialExerciseSets, exerciseName, exerciseDescription, exerciseSets]);
+
+  return { madeChanges };
 }
