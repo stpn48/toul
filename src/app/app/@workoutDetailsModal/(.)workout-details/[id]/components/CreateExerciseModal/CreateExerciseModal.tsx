@@ -1,17 +1,20 @@
 "use client";
 
 import { addExercise } from "@/app/actions/addExercise";
+import { ConfirmationModal } from "@/components/ConfirmationModal";
 import Input from "@/components/Input";
 import { Modal } from "@/components/Modal";
 import { useOptimisticWorkouts } from "@/context/useOptimisticWorkouts";
 import { useModalVisibility } from "@/store/useModalVisiblity";
 import { CreateExercise, CreateSet, ExerciseWithSets } from "@/types/types";
-import { useCallback, useState } from "react";
+import { createOptimisticExercise } from "@/utils/createOptimisticExercise";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
-import CreateExerciseModalHeader from "./CreateExerciseModalHeader";
+import { EditSetModal } from "../EditSetModal";
 import { AddSetModal } from "./AddSetModal";
 import { CreateExerciseButton } from "./CreateExerciseButton";
+import CreateExerciseModalHeader from "./CreateExerciseModalHeader";
 import { SetList } from "./SetList";
 
 type Props = {
@@ -26,6 +29,10 @@ export function CreateExerciseModal({ workoutId }: Props) {
   const [exerciseDescription, setExerciseDescription] = useState<string | null>(null);
   const [exerciseSets, setExerciseSets] = useState<CreateSet[]>([]);
 
+  const [editingSetIndex, setEditingSetIndex] = useState<number | null>(null);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const { madeChanges } = useMadeChanges(exerciseName, exerciseDescription, exerciseSets);
+
   const handleCreateExercise = useCallback(async () => {
     // validate fields
     if (!exerciseName || exerciseSets.length === 0) {
@@ -33,18 +40,22 @@ export function CreateExerciseModal({ workoutId }: Props) {
       return;
     }
 
-    // add exercise optimistically
-    const optimisticExercise: ExerciseWithSets = {
-      workoutId,
-      userId: "1",
-      sets: exerciseSets,
-      id: uuidv4(),
-      createdAt: new Date(),
-      repHistory: [],
-      timesCompleted: 0,
-      description: exerciseDescription,
-      name: exerciseName,
-    };
+    const optimisticExercise = createOptimisticExercise(
+      {
+        id: "1", // id is always 1 for now
+        workoutId,
+        userId: "1",
+        sets: [],
+        createdAt: new Date(),
+        repHistory: [],
+        timesCompleted: 0,
+        description: null,
+        name: "ss",
+      },
+      exerciseName,
+      exerciseDescription,
+      exerciseSets,
+    );
 
     addExerciseOptimistic(optimisticExercise);
 
@@ -71,11 +82,16 @@ export function CreateExerciseModal({ workoutId }: Props) {
     }
   }, [exerciseName, exerciseSets, exerciseDescription]);
 
+  const handleCloseModal = useCallback(() => {
+    if (madeChanges) {
+      setShowConfirmationModal(true);
+    } else {
+      setShowCreateExerciseModal(false);
+    }
+  }, [madeChanges]);
+
   return (
-    <Modal
-      className="flex h-[70%] w-[70%] flex-row text-sm"
-      closeModal={() => setShowCreateExerciseModal(false)}
-    >
+    <Modal className="flex h-[70%] w-[70%] flex-row text-sm" closeModal={handleCloseModal}>
       <section className="w-[30%] rounded-l-lg bg-[#faf8f6] p-6">
         <Input
           disableLabel
@@ -97,11 +113,41 @@ export function CreateExerciseModal({ workoutId }: Props) {
 
       <section className="flex-grow p-4">
         <CreateExerciseModalHeader />
-        <SetList exerciseSets={exerciseSets} />
-        <CreateExerciseButton handleCreateExercise={handleCreateExercise} />
+        <SetList exerciseSets={exerciseSets} setEditingSetIndex={setEditingSetIndex} />
+        <CreateExerciseButton onClick={handleCreateExercise} />
       </section>
 
       {showCreateSetModal && <AddSetModal setExerciseSets={setExerciseSets} />}
+      {editingSetIndex !== null && (
+        <EditSetModal
+          closeModal={() => setEditingSetIndex(null)}
+          setExerciseSets={setExerciseSets}
+          editingSetIndex={editingSetIndex}
+          setDetails={exerciseSets[editingSetIndex]}
+        />
+      )}
+
+      {showConfirmationModal && (
+        <ConfirmationModal
+          closeModal={() => setShowConfirmationModal(false)}
+          message="Are you sure you want to discard all changes?"
+          confirmAction={() => setShowCreateExerciseModal(false)}
+        />
+      )}
     </Modal>
   );
+}
+
+function useMadeChanges(exerciseName: string | null, exerciseDescription: string | null, exerciseSets: CreateSet[]) {
+  const [madeChanges, setMadeChanges] = useState(false);
+
+  useEffect(() => {
+    if (exerciseName || exerciseDescription || exerciseSets.length > 0) {
+      setMadeChanges(true);
+    } else {
+      setMadeChanges(false);
+    }
+  }, [exerciseName, exerciseDescription, exerciseSets]);
+
+  return { madeChanges };
 }
