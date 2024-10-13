@@ -3,6 +3,7 @@ import { Modal } from "@/components/Modal";
 import CreateExerciseModalHeader from "../CreateExerciseModal/CreateExerciseModalHeader";
 
 export function LoadingSkeleton() {
+  // TODO: Improve design
   return (
     <Modal closeModal={() => {}} className="flex h-[70%] w-[70%] flex-row text-sm">
       <section className="h-full w-[30%] rounded-l-lg bg-[#faf8f6] p-6">
