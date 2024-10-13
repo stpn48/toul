@@ -1,7 +1,7 @@
 import { CreateWorkoutModal } from "@/components/CreateWorkoutModal";
 import PageContainer from "@/components/PageContainer";
-import { SettingButton } from "@/components/SettingButton";
 import { Sidebar } from "@/components/Sidebar";
+import { SettingButton } from "@/components/Sidebar/SettingsButton/SettingButton";
 import { OptimisticWorkoutsProvider } from "@/context/useOptimisticWorkouts";
 import { ExerciseWithSets } from "@/types/types";
 import prisma from "@/utils/prisma";
@@ -19,11 +19,9 @@ export const metadata: Metadata = {
 export default async function AppLayout({
   children,
   workoutDetailsModal,
-  editExerciseModal,
 }: {
   children: React.ReactNode;
   workoutDetailsModal: React.ReactNode; // Make the modal prop optional
-  editExerciseModal: React.ReactNode;
 }) {
   const user = await getUser();
 
@@ -46,17 +44,12 @@ export default async function AppLayout({
     },
   });
   return (
-    <OptimisticWorkoutsProvider
-      initialWorkouts={initialWorkouts}
-      initialExercises={initialExercises}
-    >
-      <SettingButton className="absolute right-2 top-2" />
+    <OptimisticWorkoutsProvider initialWorkouts={initialWorkouts} initialExercises={initialExercises}>
+      <SettingButton />
       <Sidebar />
       <PageContainer>
         {children}
         {workoutDetailsModal}
-        {editExerciseModal}
-        <SignOutButton />
         <CreateWorkoutModal />
       </PageContainer>
     </OptimisticWorkoutsProvider>

@@ -10,6 +10,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   error?: boolean;
   errorLabel?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disableLabel?: boolean;
 };
 
 export default function Input({
@@ -18,6 +19,7 @@ export default function Input({
   onChange,
   error,
   errorLabel,
+  disableLabel,
   ...props
 }: Props) {
   const [showLabel, setShowLabel] = useState(false);
@@ -47,13 +49,13 @@ export default function Input({
 
       {/* There is no error and the input is not empty show the label */}
       <AnimatePresence>
-        {showLabel && !error && (
+        {!disableLabel && showLabel && !error && (
           <motion.p
             exit={{ opacity: 0 }} // Move up on exit
             animate={{ scale: 1 }} // Move further up when animated
             initial={{ scale: 1.1 }} // Start below
             transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="text-secondary absolute -top-[9px] left-2 bg-white px-px text-xs"
+            className="absolute -top-[9px] left-2 bg-white px-px text-xs text-secondary"
           >
             {placeholder}
           </motion.p>
@@ -61,7 +63,7 @@ export default function Input({
       </AnimatePresence>
 
       <AnimatePresence>
-        {error && (
+        {!disableLabel && error && (
           <motion.p
             exit={{ opacity: 0 }} // Move up on exit
             animate={{ scale: 1 }} // Move further up when animated

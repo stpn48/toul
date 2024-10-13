@@ -4,6 +4,7 @@ import { createWorkout } from "@/app/actions/createWorkout";
 import { useOptimisticWorkouts } from "@/context/useOptimisticWorkouts";
 import { useModalVisibility } from "@/store/useModalVisiblity";
 import React, { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import Input from "./Input";
 import { Modal } from "./Modal";
@@ -22,7 +23,7 @@ export function CreateWorkoutModal({}: Props) {
   const [workoutEstimatedDuration, setWorkoutEstimatedDuration] = useState<string>("45 min");
 
   const handleCreateWorkout = useCallback(async () => {
-    if (!workoutName) {
+    if (workoutName === null) {
       // set the name to "" bcs when the name is null it would not show the error
       setWorkoutName("");
       return;
@@ -42,6 +43,12 @@ export function CreateWorkoutModal({}: Props) {
     addWorkout(newWorkout);
     setShowCreateWorkoutModal(false);
 
+    // reset state
+    setWorkoutName(null);
+    setWorkoutDescription(null);
+    setWorkoutDifficulty("Hard");
+    setWorkoutEstimatedDuration("45 min");
+
     const { error } = await createWorkout(
       workoutName,
       workoutDescription,
@@ -50,7 +57,7 @@ export function CreateWorkoutModal({}: Props) {
     );
 
     if (error) {
-      console.log(error); //TODO: add toast
+      toast.error(error);
       return;
     }
   }, [workoutDescription, workoutDifficulty, workoutEstimatedDuration, workoutName]);

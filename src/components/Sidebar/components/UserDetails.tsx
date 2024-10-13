@@ -1,12 +1,17 @@
+import { getUser } from "@/utils/supabase/server";
 import React from "react";
+import { UserDetailsButton } from "./UserDetailsButton";
 
-export function UserDetails() {
+export async function UserDetails() {
+  const user = await getUser();
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className="flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <div className="h-5 w-5 rounded-full bg-black"></div>
-        <h1>User Name</h1>
-      </div>
+      <UserDetailsButton avatarUrl={user.user_metadata.avatar_url} username={user.email || "No name"} />
     </div>
   );
 }

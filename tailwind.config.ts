@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       borderColor: {
         main: "#797979",
+        hover: "",
       },
       fontFamily: {
         geistSans: ["var(--font-geist-sans)", "monospace"],

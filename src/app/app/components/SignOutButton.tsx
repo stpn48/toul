@@ -18,7 +18,7 @@ export default function SignOutButton() {
   }, []);
 
   return (
-    <button disabled={isSigningOut} onClick={handleSignOut} className="absolute bottom-4 right-4">
+    <button disabled={isSigningOut} onClick={handleSignOut}>
       Sign out
     </button>
   );

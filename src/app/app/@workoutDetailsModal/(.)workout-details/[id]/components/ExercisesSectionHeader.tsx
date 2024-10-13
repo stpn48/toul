@@ -11,7 +11,7 @@ export function ExercisesSectionHeader({ loading }: Props) {
   const { setShowCreateExerciseModal } = useModalVisibility();
 
   return (
-    <div className="flex items-center justify-between pr-5">
+    <div className="mr-5 flex items-center justify-between">
       <h1 className="text-xs font-bold text-secondary">EXERCISES</h1>
       <button
         disabled={loading}

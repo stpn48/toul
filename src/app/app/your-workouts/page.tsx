@@ -3,7 +3,7 @@ import { WorkoutList } from "./components/WorkoutList";
 
 export default async function YourWorkoutsPage() {
   return (
-    <div className="flex flex-grow flex-col gap-8 p-4 text-black dark:text-white">
+    <div className="flex h-full w-full flex-grow flex-col gap-8 text-black dark:text-white">
       <h1 className="text-2xl font-bold">Your Workouts</h1>
       <WorkoutList />
     </div>

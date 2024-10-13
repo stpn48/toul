@@ -10,7 +10,7 @@ export function WorkoutList() {
   return (
     <div className="flex w-full flex-wrap justify-center gap-4">
       {optimisticWorkouts.length === 0 && (
-        <p className="text-center text-xs text-secondary">No workouts yet...</p>
+        <p className="flex w-full justify-center text-center text-xs text-secondary">No workouts yet...</p>
       )}
       {optimisticWorkouts.map((workout) => (
         <WorkoutCard key={workout.id} workout={workout} />
