@@ -33,7 +33,7 @@ model Exercise {
   workoutId      String // Id of the workout this exercise belongs to
   name           String
   description    String?
-  workout        Workout  @relation(fields: [workoutId], references: [id])
+  workout        Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
   sets           Set[]
   userId         String
 }
@@ -44,5 +44,5 @@ model Set {
   name       String
   targetReps Int
   exerciseId String
-  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
 }
