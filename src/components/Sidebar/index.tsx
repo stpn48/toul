@@ -9,12 +9,14 @@ type Props = {};
 
 export function Sidebar({}: Props) {
   return (
-    <SidebarContainer className="fixed flex h-screen w-[250px] flex-col gap-10 bg-[#faf8f6] p-4 dark:bg-black">
-      <UserDetails />
-      <ToggleSidebarButton />
+    <SidebarContainer className="bg-secondary fixed flex h-screen w-[275px] flex-col gap-10 px-5 pb-4 pt-7 dark:bg-black">
+      <div className="flex w-full items-center justify-between">
+        <UserDetails />
+        <ToggleSidebarButton />
+      </div>
       <CreateWorkoutButton />
       <SidebarLinks />
-      <div className="absolute bottom-4 text-xs text-[#aaaaaa] dark:text-[#aaaaaa]">
+      <div className="dark:text-dark-secondary flex h-full w-full items-end justify-center text-xs text-[#cacaca]">
         {/* TODO: Add text color for dark mode */}
         <h1>Toul® 2024 All Rights Reserved</h1>
       </div>
