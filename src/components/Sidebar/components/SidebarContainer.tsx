@@ -13,13 +13,7 @@ export function SidebarContainer({ children, className }: Props) {
   const { showSidebar } = useSidebarVisibility();
 
   return (
-    <div
-      className={twMerge(
-        "transition-all duration-[300ms]",
-        className,
-        showSidebar ? "left-0" : "-left-[250px]",
-      )}
-    >
+    <div className={twMerge("transition-all duration-[300ms]", className, showSidebar ? "left-0" : "-left-[275px]")}>
       {children}
     </div>
   );
