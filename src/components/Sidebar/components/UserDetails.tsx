@@ -10,7 +10,7 @@ export async function UserDetails() {
   }
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center">
       <UserDetailsButton avatarUrl={user.user_metadata.avatar_url} username={user.email || "No name"} />
     </div>
   );
