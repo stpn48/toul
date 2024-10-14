@@ -56,14 +56,17 @@ export function WorkoutDetailsSectionContent({ workout }: Props) {
   return (
     <>
       {isEditing && (
-        <div className="fixed inset-0 z-20 h-screen w-screen bg-stone-400 bg-opacity-50" onClick={handleStopEditing} />
+        <div
+          className="fixed inset-0 z-20 h-screen w-screen bg-stone-400 bg-opacity-50 dark:bg-stone-900 dark:bg-opacity-60"
+          onClick={handleStopEditing}
+        />
       )}
 
       <div
         onClick={() => setIsEditing(true)}
         className={twMerge(
           "box-border rounded-lg border border-transparent bg-inherit p-4",
-          isEditing && "z-20 border-amber-500",
+          isEditing && "z-20 border-amber-500 dark:border-red-500",
         )}
       >
         <div className="flex flex-col gap-4">
@@ -71,7 +74,7 @@ export function WorkoutDetailsSectionContent({ workout }: Props) {
             <Input
               disableLabel
               placeholder="Workout Name"
-              className="border-0 bg-inherit px-0 pb-0 text-lg font-bold"
+              className="border-0 bg-inherit px-0 pb-0 text-lg font-bold text-black dark:text-white"
               value={workoutName || ""}
               onChange={(e) => {
                 setWorkoutName(e.target.value);
@@ -80,7 +83,7 @@ export function WorkoutDetailsSectionContent({ workout }: Props) {
             <Input
               disableLabel
               placeholder="Workout Description"
-              className="border-0 bg-inherit px-0 pt-0"
+              className="border-0 bg-inherit px-0 pt-0 text-black dark:text-white"
               value={workoutDescription || ""}
               onChange={(e) => {
                 setWorkoutDescription(e.target.value);
