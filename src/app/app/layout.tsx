@@ -1,7 +1,7 @@
 import { CreateWorkoutModal } from "@/components/CreateWorkoutModal";
 import PageContainer from "@/components/PageContainer";
+import { SettingButton } from "@/components/SettingsButton/SettingButton";
 import { Sidebar } from "@/components/Sidebar";
-import { SettingButton } from "@/components/Sidebar/SettingsButton/SettingButton";
 import { OptimisticWorkoutsProvider } from "@/context/useOptimisticWorkouts";
 import { ExerciseWithSets } from "@/types/types";
 import prisma from "@/utils/prisma";
@@ -9,7 +9,6 @@ import { getUser } from "@/utils/supabase/server";
 import { Workout } from "@prisma/client";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import SignOutButton from "./components/SignOutButton";
 
 export const metadata: Metadata = {
   title: "toul",
@@ -19,9 +18,11 @@ export const metadata: Metadata = {
 export default async function AppLayout({
   children,
   workoutDetailsModal,
+  logWorkoutModal,
 }: {
   children: React.ReactNode;
   workoutDetailsModal: React.ReactNode; // Make the modal prop optional
+  logWorkoutModal: React.ReactNode;
 }) {
   const user = await getUser();
 
@@ -50,6 +51,7 @@ export default async function AppLayout({
       <PageContainer>
         {children}
         {workoutDetailsModal}
+        {logWorkoutModal}
         <CreateWorkoutModal />
       </PageContainer>
     </OptimisticWorkoutsProvider>
