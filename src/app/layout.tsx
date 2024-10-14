@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} flex font-geistSans text-sm font-medium antialiased`}>
+      <body className={`${geistSans.variable} flex font-geistSans text-sm font-medium antialiased dark:bg-dark`}>
         <ReactQueryProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
