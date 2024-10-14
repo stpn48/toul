@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { useSidebarVisibility } from "../use-sidebar-visibility";
@@ -8,14 +9,15 @@ export function ToggleSidebarButton() {
   const { showSidebar, setShowSidebar } = useSidebarVisibility();
 
   return (
-    <button
+    <motion.button
       onClick={() => setShowSidebar((prev) => !prev)}
       className={twMerge(
-        "ease absolute right-4 top-4 text-black transition-all duration-[300ms] hover:text-[#454545] dark:text-secondary-text-dark dark:hover:text-white",
-        !showSidebar && "-right-10",
+        "ease dark:text-dark absolute right-4 top-4 text-black transition-all duration-[300ms] dark:hover:text-white",
+        !showSidebar && "dark:text-dark-secondary -right-10",
       )}
     >
       <svg
+        className="text-black dark:text-secondary"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -29,6 +31,6 @@ export function ToggleSidebarButton() {
           clipRule="evenodd"
         ></path>
       </svg>
-    </button>
+    </motion.button>
   );
 }
