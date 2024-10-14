@@ -10,7 +10,7 @@ type Props = {
 
 export default async function WorkoutDetailsPage({ params }: Props) {
   if (!params.id) {
-    return null; //TODO: Improve error handling
+    return null;
   }
 
   const workout = await prisma.workout.findFirst({
@@ -27,7 +27,7 @@ export default async function WorkoutDetailsPage({ params }: Props) {
   });
 
   if (!workout) {
-    return null; //TODO: Improve error handling
+    return null;
   }
 
   return <WorkoutDetailsModal workout={workout} />;
