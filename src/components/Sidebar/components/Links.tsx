@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 const links = [
@@ -11,10 +12,6 @@ const links = [
     title: "Completed Exercises",
     href: "/app/completed-exercises",
   },
-  {
-    title: "Completed Workouts",
-    href: "/app/completed-workouts",
-  },
 ];
 
 export function SidebarLinks() {
@@ -23,7 +20,7 @@ export function SidebarLinks() {
       {links.map((link) => (
         <Link
           prefetch={true}
-          className="dark:text-secondary text-black hover:text-[#454545] dark:hover:text-white"
+          className="dark:hover:bg-dark-hover text-main dark:text-dark-main hover:bg-hover flex w-full items-center gap-2 rounded-lg p-2"
           key={link.title}
           href={link.href}
         >
