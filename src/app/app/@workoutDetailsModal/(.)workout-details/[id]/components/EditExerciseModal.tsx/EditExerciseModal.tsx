@@ -130,7 +130,7 @@ export function EditExerciseModal({ exerciseId }: Props) {
 
   return (
     <Modal className="flex h-[70%] w-[70%] flex-row text-sm" closeModal={handleCloseModal}>
-      <section className="w-[30%] rounded-l-lg bg-[#faf8f6] p-6 text-black dark:bg-black dark:text-white">
+      <section className="bg-secondary dark:bg-dark-secondary text-main dark:text-dark-main w-[30%] rounded-l-lg p-6">
         <Input
           disableLabel
           value={exerciseName || ""}
@@ -138,19 +138,19 @@ export function EditExerciseModal({ exerciseId }: Props) {
           error={exerciseName === ""}
           errorLabel={"This field is required"}
           placeholder="Exercise Name"
-          className="w-full border-0 bg-inherit text-lg font-bold dark:text-white"
+          className="dark:text-dark-main w-full border-0 bg-inherit text-lg font-bold"
         />
         <Input
           disableLabel
           value={exerciseDescription || ""}
           onChange={(e) => setExerciseDescription(e.target.value)}
           placeholder="Exercise Description"
-          className="w-full border-0 bg-inherit dark:text-white"
+          className="dark:text-dark-main w-full border-0 bg-inherit"
         />
       </section>
 
       <section className="flex-grow p-4">
-        <CreateExerciseModalHeader />
+        <h1 className="text-xs font-bold text-secondary">SETS</h1>
         <SetList exerciseSets={exerciseSets} setEditingSetIndex={setEditingSetIndex} />
         <div className="absolute bottom-4 right-4 flex gap-3">
           <RemoveExerciseButton handleRemoveExercise={handleRemoveExercise} />
