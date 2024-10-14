@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 import { EditSetModal } from "../EditSetModal";
 import { EditExerciseButton } from "./EditExerciseButton";
 import { LoadingSkeleton } from "./LoadingSkeleton";
-import { RemoveExerciseButton } from "./removeExerciseButton";
+import { RemoveExerciseButton } from "./RemoveExerciseButton";
 
 type Props = {
   exerciseId: string | null;
@@ -130,7 +130,7 @@ export function EditExerciseModal({ exerciseId }: Props) {
 
   return (
     <Modal className="flex h-[70%] w-[70%] flex-row text-sm" closeModal={handleCloseModal}>
-      <section className="w-[30%] rounded-l-lg bg-[#faf8f6] p-6">
+      <section className="w-[30%] rounded-l-lg bg-[#faf8f6] p-6 text-black dark:bg-black dark:text-white">
         <Input
           disableLabel
           value={exerciseName || ""}
@@ -138,14 +138,14 @@ export function EditExerciseModal({ exerciseId }: Props) {
           error={exerciseName === ""}
           errorLabel={"This field is required"}
           placeholder="Exercise Name"
-          className="w-full border-0 bg-inherit text-lg font-bold"
+          className="w-full border-0 bg-inherit text-lg font-bold dark:text-white"
         />
         <Input
           disableLabel
           value={exerciseDescription || ""}
           onChange={(e) => setExerciseDescription(e.target.value)}
           placeholder="Exercise Description"
-          className="w-full border-0 bg-inherit"
+          className="w-full border-0 bg-inherit dark:text-white"
         />
       </section>
 
