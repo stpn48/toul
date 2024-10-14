@@ -16,7 +16,7 @@ export default function CreateExerciseModalHeader({ loading }: Props) {
       <button
         disabled={loading}
         onClick={() => setShowCreateSetModal(true)}
-        className="flex items-center justify-center gap-2 rounded-full bg-amber-500 px-2 py-1 pr-3 text-white"
+        className="flex items-center justify-center gap-2 rounded-full bg-amber-500 px-2 py-1 pr-3 text-white dark:bg-white dark:text-black"
       >
         <PlusIcon />
         <h1>Add Set</h1>
@@ -27,12 +27,7 @@ export default function CreateExerciseModalHeader({ loading }: Props) {
 
 function PlusIcon() {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="size-4"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4">
       <path
         fillRule="evenodd"
         d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
