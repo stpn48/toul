@@ -8,8 +8,8 @@ export function LoadingSkeleton() {
     <Modal closeModal={() => {}} className="flex h-[70%] w-[70%] flex-row text-sm">
       <section className="h-full w-[30%] rounded-l-lg bg-[#faf8f6] p-6">
         <div className="flex flex-col gap-4">
-          <div className="h-[30px] w-full animate-pulse rounded-md bg-stone-500" />
-          <div className="h-[20px] w-full animate-pulse rounded-md bg-stone-500" />
+          <div className="h-[30px] w-full animate-pulse rounded-md bg-stone-300" />
+          <div className="h-[20px] w-full animate-pulse rounded-md bg-stone-300" />
         </div>
       </section>
 
