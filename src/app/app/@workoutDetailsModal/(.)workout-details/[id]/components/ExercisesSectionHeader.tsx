@@ -16,7 +16,7 @@ export function ExercisesSectionHeader({ loading }: Props) {
       <button
         disabled={loading}
         onClick={() => setShowCreateExerciseModal(true)}
-        className="flex items-center gap-2 rounded-full bg-amber-500 px-2 py-1 text-white"
+        className="flex items-center gap-2 rounded-full bg-amber-500 px-2 py-1 pr-3 text-white dark:bg-white dark:text-black"
       >
         <PlusIcon />
         Add Exercise
