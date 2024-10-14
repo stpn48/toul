@@ -16,7 +16,7 @@ export function ExerciseCard({ exercise }: Props) {
       onClick={() => {
         if (exercise.id !== "1") setEditingExerciseId(exercise.id); // if exercise is not optimistic, open modal (id 1 says its optimistic  )
       }}
-      className="flex w-full cursor-pointer rounded-lg border border-main p-5 hover:border-amber-500 dark:hover:border-white"
+      className="text-main dark:text-dark-main dark:border-dark-main dark:hover:border-dark-hover flex w-full cursor-pointer rounded-md border border-main p-5 hover:border-hover"
     >
       <div className="flex w-[40%] flex-col">
         <h1 className="text-base">{exercise.name}</h1>
