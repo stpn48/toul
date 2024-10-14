@@ -11,7 +11,6 @@ import { CreateExerciseModal } from "./CreateExerciseModal/CreateExerciseModal";
 import { DeleteWorkoutButton } from "./DeleteWorkoutButton";
 import { EditExerciseModal } from "./EditExerciseModal.tsx/EditExerciseModal";
 import { ExerciseList } from "./ExerciseList";
-import { ExercisesSectionHeader } from "./ExercisesSectionHeader";
 import { WorkoutDetailsSectionContent } from "./WorkoutDetailsSectionContent";
 
 type Props = {
@@ -24,12 +23,12 @@ export function WorkoutDetailsModal({ workout }: Props) {
 
   return (
     <Modal className="flex flex-row" closeModal={() => router.back()}>
-      <section className="flex w-[30%] flex-col gap-8 rounded-l-lg bg-[#faf8f6] p-2 dark:bg-black dark:text-white">
+      <section className="bg-secondary dark:bg-dark-secondary dark:text-dark-main flex w-[30%] flex-col gap-8 rounded-l-lg p-2">
         <WorkoutDetailsSectionContent workout={workout} />
         <DeleteWorkoutButton workoutId={workout.id} />
       </section>
       <section className="relative h-full flex-grow rounded-r-lg p-4 dark:bg-dark">
-        <ExercisesSectionHeader />
+        <h1 className="text-xs font-bold text-secondary">EXERCISES</h1>
         <ExerciseList workoutId={workout.id} />
         <Link href={`/app/log-workout/${workout.id}`}>
           <Button className="absolute bottom-4 right-4">Log Workout</Button>
