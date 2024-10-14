@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import { LoadingBalls } from "@/components/LoadingBalls";
 import { Modal } from "@/components/Modal";
 import CreateExerciseModalHeader from "../CreateExerciseModal/CreateExerciseModalHeader";
@@ -6,10 +7,10 @@ export function LoadingSkeleton() {
   // TODO: Improve design
   return (
     <Modal closeModal={() => {}} className="flex h-[70%] w-[70%] flex-row text-sm">
-      <section className="h-full w-[30%] rounded-l-lg bg-[#faf8f6] p-6">
+      <section className="bg-secondary dark:bg-dark-secondary h-full w-[30%] rounded-l-lg p-6">
         <div className="flex flex-col gap-4">
-          <div className="h-[30px] w-full animate-pulse rounded-md bg-stone-300" />
-          <div className="h-[20px] w-full animate-pulse rounded-md bg-stone-300" />
+          <div className="h-[30px] w-full animate-pulse rounded-md bg-stone-300 dark:bg-stone-900" />
+          <div className="h-[20px] w-full animate-pulse rounded-md bg-stone-300 dark:bg-stone-900" />
         </div>
       </section>
 
@@ -20,12 +21,9 @@ export function LoadingSkeleton() {
           <LoadingBalls />
         </div>
 
-        <button
-          disabled={true}
-          className="absolute bottom-4 right-4 flex w-fit justify-center rounded-full bg-amber-500 px-4 py-2 text-white"
-        >
+        <Button disabled={true} className="absolute bottom-4 right-4">
           Edit Exercise
-        </button>
+        </Button>
       </section>
     </Modal>
   );
