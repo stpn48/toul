@@ -11,7 +11,7 @@ export default function PageContainer({ children }: Props) {
   const { showSidebar } = useSidebarVisibility();
 
   return (
-    <div className={`h-full w-full p-5 transition-all duration-[300ms] ${showSidebar ? "pl-[270px]" : "pl-[60px]"}`}>
+    <div className={`h-full w-full p-10 transition-all duration-[300ms] ${showSidebar ? "pl-[290px]" : "pl-[60px]"}`}>
       {children}
     </div>
   );
