@@ -13,15 +13,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   disableLabel?: boolean;
 };
 
-export default function Input({
-  className,
-  placeholder,
-  onChange,
-  error,
-  errorLabel,
-  disableLabel,
-  ...props
-}: Props) {
+export default function Input({ className, placeholder, onChange, error, errorLabel, disableLabel, ...props }: Props) {
   const [showLabel, setShowLabel] = useState(false);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +32,7 @@ export default function Input({
         onChange={handleOnChange}
         placeholder={placeholder}
         className={twMerge(
-          "min-w-[200px] rounded-md border px-4 py-2 text-black outline-none",
+          "dark:text-dark-main dark:border-dark-main dark:focus:border-dark-hover text-main min-w-[200px] rounded-md border border-main px-4 py-2 outline-none hover:border-hover focus:border-hover",
           className,
           error && "border-[#e22743]",
         )}
@@ -55,7 +47,7 @@ export default function Input({
             animate={{ scale: 1 }} // Move further up when animated
             initial={{ scale: 1.1 }} // Start below
             transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="absolute -top-[9px] left-2 bg-white px-px text-xs text-secondary"
+            className="absolute -top-[9px] left-2 px-px text-xs text-secondary dark:bg-dark"
           >
             {placeholder}
           </motion.p>
@@ -69,7 +61,7 @@ export default function Input({
             animate={{ scale: 1 }} // Move further up when animated
             initial={{ scale: 1.1 }} // Start below
             transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="absolute -top-[9px] left-2 bg-white px-px text-xs text-[#e22743]"
+            className="absolute -top-[9px] left-2 px-px text-xs text-[#e22743] dark:bg-dark"
           >
             {errorLabel}
           </motion.p>
