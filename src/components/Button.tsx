@@ -11,7 +11,7 @@ export default function Button({ className, variant, children, ...props }: Props
   return (
     <button
       className={twMerge(
-        "rounded-lg bg-amber-500 px-4 py-2 text-sm text-white dark:bg-white dark:text-black",
+        "rounded-lg bg-black px-4 py-2 text-sm text-white dark:bg-white dark:text-black",
         className,
         variant === "secondary" && "bg-stone-400",
       )}
