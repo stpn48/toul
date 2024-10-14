@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/Button";
 import { ConfirmationModal } from "@/components/ConfirmationModal";
 import Input from "@/components/Input";
 import { Modal } from "@/components/Modal";
@@ -109,9 +110,9 @@ export function EditSetModal({ closeModal, setExerciseSets, editingSetIndex, set
         <button onClick={() => setRemoveConfirmationModal(true)} className="absolute -left-8 top-[50%] translate-y-[-50%]">
           <TrashIcon />
         </button>
-        <button onClick={handleEditSet} className="flex w-full justify-center rounded-full bg-amber-500 px-4 py-2 text-white">
+        <Button onClick={handleEditSet} className="flex w-full justify-center">
           Edit Set
-        </button>
+        </Button>
       </div>
 
       {showConfirmationModal && (
@@ -133,6 +134,7 @@ export function EditSetModal({ closeModal, setExerciseSets, editingSetIndex, set
   );
 }
 
+// helpers
 function useMadeChanges(initialSetName: string, initialTargetReps: number, setName: string | null, targetReps: number) {
   const [madeChanges, setMadeChanges] = useState(false);
 
