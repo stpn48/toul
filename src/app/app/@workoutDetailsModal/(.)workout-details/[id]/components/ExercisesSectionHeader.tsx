@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/Button";
 import { useModalVisibility } from "@/store/useModalVisiblity";
 import React from "react";
 
@@ -10,19 +11,7 @@ type Props = {
 export function ExercisesSectionHeader({ loading }: Props) {
   const { setShowCreateExerciseModal } = useModalVisibility();
 
-  return (
-    <div className="mr-5 flex items-center justify-between">
-      <h1 className="text-xs font-bold text-secondary">EXERCISES</h1>
-      <button
-        disabled={loading}
-        onClick={() => setShowCreateExerciseModal(true)}
-        className="flex items-center gap-2 rounded-full bg-amber-500 px-2 py-1 pr-3 text-white dark:bg-white dark:text-black"
-      >
-        <PlusIcon />
-        Add Exercise
-      </button>
-    </div>
-  );
+  return <div className="mr-5 flex items-center justify-between"></div>;
 }
 
 function PlusIcon() {
