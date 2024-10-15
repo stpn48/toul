@@ -13,15 +13,7 @@ type Props = InputHTMLAttributes<HTMLTextAreaElement> & {
   hideError?: () => void;
 };
 
-export default function Textarea({
-  className,
-  placeholder,
-  onChange,
-  error,
-  errorLabel,
-  hideError,
-  ...props
-}: Props) {
+export default function Textarea({ className, placeholder, onChange, error, errorLabel, hideError, ...props }: Props) {
   const [showLabel, setShowLabel] = useState(false);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -45,7 +37,7 @@ export default function Textarea({
         onChange={handleOnChange}
         placeholder={placeholder}
         className={twMerge(
-          "w-[225px] resize-none rounded-md border px-4 py-2 text-black outline-none",
+          "w-[225px] resize-none rounded-md border border-main px-4 py-2 text-main outline-none focus:border-hover dark:border-dark-main dark:text-dark-main dark:focus:border-dark-hover",
           className,
           error && "border-[#e22743]",
         )}
@@ -60,7 +52,7 @@ export default function Textarea({
             animate={{ scale: 1 }} // Move further up when animated
             initial={{ scale: 1.1 }} // Start below
             transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="text-secondary border-main absolute -top-[9px] left-2 bg-white px-px text-xs"
+            className="absolute -top-[9px] left-2 px-px text-xs text-secondary dark:bg-dark"
           >
             {placeholder}
           </motion.p>
