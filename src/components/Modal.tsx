@@ -20,7 +20,10 @@ export function Modal({ closeModal, className, transparentBackdrop, children }: 
     >
       {/* Modal */}
       <div
-        className={twMerge("relative flex h-[95%] w-[80%] flex-col rounded-lg bg-white dark:bg-dark", className)}
+        className={twMerge(
+          "relative flex h-[95%] w-[80%] flex-col rounded-lg border border-main bg-white dark:border-[#252525] dark:bg-dark",
+          className,
+        )}
         onClick={(e) => e.stopPropagation()}
       >
         <button className="absolute right-2 top-2 z-10" onClick={closeModal}>
