@@ -13,7 +13,7 @@ export function WorkoutCard({ workout }: Props) {
       <div
         tabIndex={0}
         role="button"
-        className="dark:border-dark-main dark:hover:border-dark-hover flex w-full cursor-pointer justify-between gap-2 rounded-lg border border-main p-4 outline-none hover:border-hover"
+        className="flex w-full cursor-pointer justify-between gap-2 rounded-lg border border-main p-4 outline-none hover:border-hover dark:border-dark-main dark:hover:border-dark-hover"
       >
         <div className="flex flex-col">
           <h1 className="max-w-[150px] truncate">{workout.name}</h1>
