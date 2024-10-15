@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "@/components/Button";
+import { Checkbox } from "@/components/Checkbox";
 import Input from "@/components/Input";
 import { Modal } from "@/components/Modal";
 import { useModalVisibility } from "@/store/useModalVisiblity";
@@ -15,6 +17,7 @@ export function AddSetModal({ setExerciseSets }: Props) {
 
   const [setName, setSetName] = useState<string | null>(null);
   const [targetRepsString, setTargetRepsString] = useState<string | null>(null);
+  const [isWarmupSet, setIsWarmupSet] = useState(false);
 
   const handleAddSet = useCallback(() => {
     // check if all fields are filled
@@ -41,15 +44,16 @@ export function AddSetModal({ setExerciseSets }: Props) {
     }
 
     // update sets for the exercise (append it)
-    setExerciseSets((prev) => [...prev, { name: setName, targetReps }]);
+    setExerciseSets((prev) => [...prev, { name: setName, targetReps, isWarmupSet }]);
 
     // reset state
     setSetName(null);
     setTargetRepsString(null);
+    setIsWarmupSet(false);
 
     // close modal
     setShowCreateSetModal(false);
-  }, [setExerciseSets, setName, targetRepsString, setShowCreateSetModal]);
+  }, [setExerciseSets, setName, targetRepsString, setShowCreateSetModal, isWarmupSet, setIsWarmupSet]);
 
   return (
     <Modal className="flex h-fit w-fit flex-col gap-4 p-10" closeModal={() => setShowCreateSetModal(false)}>
@@ -70,9 +74,13 @@ export function AddSetModal({ setExerciseSets }: Props) {
         onChange={(e) => setTargetRepsString(e.target.value)}
         placeholder="Target Reps"
       />
-      <button onClick={handleAddSet} className="flex w-full justify-center rounded-full bg-amber-500 px-4 py-2 text-white">
+      <div className="flex items-center gap-2">
+        <Checkbox onClick={() => setIsWarmupSet((prev) => !prev)} />
+        <p className="text-sm text-secondary">Warmup Set</p>
+      </div>
+      <Button onClick={handleAddSet} className="w-full">
         Add Set
-      </button>
+      </Button>
     </Modal>
   );
 }
