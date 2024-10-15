@@ -32,7 +32,7 @@ export default function Input({ className, placeholder, onChange, error, errorLa
         onChange={handleOnChange}
         placeholder={placeholder}
         className={twMerge(
-          "dark:text-dark-main dark:border-dark-main dark:focus:border-dark-hover text-main min-w-[200px] rounded-md border border-main px-4 py-2 outline-none hover:border-hover focus:border-hover",
+          "w-[200px] rounded-md border border-main px-4 py-2 text-main outline-none hover:border-hover focus:border-hover dark:border-dark-main dark:text-dark-main dark:focus:border-dark-hover",
           className,
           error && "border-[#e22743]",
         )}
