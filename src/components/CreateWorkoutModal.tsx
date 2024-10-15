@@ -6,6 +6,7 @@ import { useModalVisibility } from "@/store/useModalVisiblity";
 import React, { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
+import Button from "./Button";
 import Input from "./Input";
 import { Modal } from "./Modal";
 import Select from "./Select";
@@ -49,12 +50,7 @@ export function CreateWorkoutModal({}: Props) {
     setWorkoutDifficulty("Hard");
     setWorkoutEstimatedDuration("45 min");
 
-    const { error } = await createWorkout(
-      workoutName,
-      workoutDescription,
-      workoutDifficulty,
-      workoutEstimatedDuration,
-    );
+    const { error } = await createWorkout(workoutName, workoutDescription, workoutDifficulty, workoutEstimatedDuration);
 
     if (error) {
       toast.error(error);
@@ -70,7 +66,7 @@ export function CreateWorkoutModal({}: Props) {
     <Modal
       transparentBackdrop
       closeModal={() => setShowCreateWorkoutModal(false)}
-      className="custom-shadow flex h-fit w-fit flex-col gap-4 p-10 px-[100px]"
+      className="custom-shadow flex h-fit w-fit flex-col gap-4 p-10 px-[100px] dark:bg-dark-secondary"
     >
       <h1 className="text-2xl font-bold">Create Workout</h1>
       <Input
@@ -88,12 +84,7 @@ export function CreateWorkoutModal({}: Props) {
         placeholder="Workout Description (optional)"
       />
       <div className="flex w-full justify-between">
-        <Select
-          label="Difficulty"
-          value={workoutDifficulty}
-          setValue={setWorkoutDifficulty}
-          options={["Hard"]}
-        />
+        <Select label="Difficulty" value={workoutDifficulty} setValue={setWorkoutDifficulty} options={["Hard"]} />
         <Select
           label="Estimated Duration"
           value={workoutEstimatedDuration}
@@ -101,12 +92,7 @@ export function CreateWorkoutModal({}: Props) {
           options={["15 min", "30 min", "45 min", "60 min", "75 min", "90 min", "120 min"]}
         />
       </div>
-      <button
-        onClick={handleCreateWorkout}
-        className="w-full rounded-lg bg-amber-500 py-2 text-white"
-      >
-        Create
-      </button>
+      <Button onClick={handleCreateWorkout}>Create</Button>
     </Modal>
   );
 }
