@@ -25,6 +25,7 @@ export async function addExercise(exercise: CreateExercise, workoutId: string) {
         sets: {
           create: exercise.sets.map((set) => ({
             name: set.name,
+            isWarmupSet: set.isWarmupSet,
             targetReps: set.targetReps,
           })),
         },
