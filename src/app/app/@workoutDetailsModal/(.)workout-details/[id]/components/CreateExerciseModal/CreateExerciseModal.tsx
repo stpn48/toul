@@ -92,7 +92,7 @@ export function CreateExerciseModal({ workoutId }: Props) {
 
   return (
     <Modal className="flex h-[70%] w-[70%] flex-row text-sm" closeModal={handleCloseModal}>
-      <section className="w-[30%] rounded-l-lg bg-[#faf8f6] p-6">
+      <section className="w-[30%] rounded-l-lg bg-secondary p-6 dark:bg-dark-secondary">
         <Input
           disableLabel
           value={exerciseName || ""}
