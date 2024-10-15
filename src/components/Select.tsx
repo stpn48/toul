@@ -18,7 +18,10 @@ export default function Select({ value, setValue, options, label, disableLabel, 
   return (
     <div className="relative">
       <select
-        className={twMerge("main-border rounded-lg border px-4 py-2 outline-none", className)}
+        className={twMerge(
+          "rounded-lg border border-main px-4 py-2 outline-none focus:border-hover dark:border-dark-main dark:focus:border-dark-hover",
+          className,
+        )}
         value={value}
         onChange={handleSelectChange}
       >
