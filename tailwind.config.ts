@@ -11,7 +11,7 @@ const config: Config = {
       borderColor: {
         main: "#ebebeb",
         hover: "#c9c9c9",
-        "dark-main": "#212121",
+        "dark-main": "#3c3c3c",
         "dark-hover": "#4c4c4c",
       },
       fontFamily: {
@@ -28,7 +28,7 @@ const config: Config = {
       backgroundColor: {
         secondary: "#faf8f6",
         hover: "#eeeeee",
-        dark: "#101010",
+        dark: "#161616",
         "dark-secondary": "#000000",
         "dark-hover": "#212121",
       },
