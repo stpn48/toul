@@ -18,6 +18,7 @@ export type WorkoutWithExercises = Workout & {
 export type CreateSet = {
   name: string;
   targetReps: number;
+  isWarmupSet: boolean;
 };
 
 export type CreateExercise = {
