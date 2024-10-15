@@ -31,6 +31,7 @@ export async function updateExercise(newExercise: CreateExercise, exerciseId: st
         sets: {
           deleteMany: {},
           create: newExercise.sets.map((set) => ({
+            isWarmupSet: set.isWarmupSet,
             name: set.name,
             targetReps: set.targetReps,
           })),
