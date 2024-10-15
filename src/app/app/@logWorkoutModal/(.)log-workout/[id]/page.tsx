@@ -1,17 +1,37 @@
-"use client";
+import prisma from "@/utils/prisma";
+import { redirect } from "next/navigation";
+import { LogWorkoutModal } from "./components/LogWorkoutModal";
 
-import { Modal } from "@/components/Modal";
-import { useRouter } from "next/navigation";
-import React from "react";
+type Props = {
+  params: { id: string };
+};
 
-type Props = {};
+export default async function LogWorkoutModalPage({ params }: Props) {
+  if (!params.id) {
+    redirect("/app/your-workouts");
+  }
 
-export default function LogWorkoutModal({}: Props) {
-  const router = useRouter();
+  try {
+    const workout = await prisma.workout.findFirst({
+      where: {
+        id: params.id,
+      },
+      include: {
+        exercises: {
+          include: {
+            sets: true,
+          },
+        },
+      },
+    });
 
-  return (
-    <Modal closeModal={() => router.back()}>
-      <h1>HELLO</h1>
-    </Modal>
-  );
+    if (!workout) {
+      // close modal TODO: Show error toast and improve error handling
+      redirect("/app/your-workouts");
+    }
+
+    return <LogWorkoutModal workout={workout} />;
+  } catch (error) {
+    redirect("/app/your-workouts");
+  }
 }
