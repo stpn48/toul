@@ -42,7 +42,7 @@ function filterWarmupSets(exercises: ExerciseWithSets[]) {
   return exercises
     .map((exercise: ExerciseWithSets) => ({
       ...exercise,
-      sets: exercise.sets.filter((set: { isWarmupSet: boolean }) => !set.isWarmupSet), // Filter out warmup sets
+      sets: exercise.sets.filter((set) => !set.isWarmupSet), // Filter out warmup sets
     }))
     .filter((exercise: ExerciseWithSets) => exercise.sets.length > 0);
 }
