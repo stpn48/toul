@@ -14,8 +14,6 @@ export async function getExerciseDetails(exerciseId: string) {
     throw new Error("Please provide an exerciseId");
   }
 
-  await new Promise((resolve) => setTimeout(resolve, 10));
-
   try {
     const exercises = await prisma.exercise.findFirst({
       where: {
