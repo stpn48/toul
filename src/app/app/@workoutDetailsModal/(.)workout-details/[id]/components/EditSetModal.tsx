@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
+import { Checkbox } from "@/components/Checkbox";
 import { ConfirmationModal } from "@/components/ConfirmationModal";
 import Input from "@/components/Input";
 import { Modal } from "@/components/Modal";
@@ -17,6 +18,7 @@ type Props = {
 export function EditSetModal({ closeModal, setExerciseSets, editingSetIndex, setDetails }: Props) {
   const [setName, setSetName] = useState<string | null>(setDetails.name);
   const [targetRepsString, setTargetRepsString] = useState<string | null>(setDetails.targetReps.toString());
+  const [isWarmupSet, setIsWarmupSet] = useState(setDetails.isWarmupSet);
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [removeConfirmationModal, setRemoveConfirmationModal] = useState(false);
@@ -52,6 +54,7 @@ export function EditSetModal({ closeModal, setExerciseSets, editingSetIndex, set
       const updatedExerciseSets = [...prev];
 
       updatedExerciseSets[editingSetIndex] = {
+        isWarmupSet,
         name: setName,
         targetReps,
       };
@@ -65,7 +68,7 @@ export function EditSetModal({ closeModal, setExerciseSets, editingSetIndex, set
 
     // close modal
     closeModal();
-  }, [setExerciseSets, setName, targetRepsString]);
+  }, [setExerciseSets, setName, targetRepsString, isWarmupSet]);
 
   const handleRemoveSet = useCallback(() => {
     setExerciseSets((prev) => {
@@ -106,6 +109,10 @@ export function EditSetModal({ closeModal, setExerciseSets, editingSetIndex, set
         onChange={(e) => setTargetRepsString(e.target.value)}
         placeholder="Target Reps"
       />
+      <div className="flex items-center gap-2">
+        <Checkbox initialIsChecked={isWarmupSet} onClick={() => setIsWarmupSet((prev) => !prev)} />
+        <p className="text-sm text-secondary">Warmup Set</p>
+      </div>
       <div className="relative">
         <button onClick={() => setRemoveConfirmationModal(true)} className="absolute -left-8 top-[50%] translate-y-[-50%]">
           <TrashIcon />

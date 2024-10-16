@@ -1,6 +1,8 @@
+import { ExerciseWithSets } from "@/types/types";
 import prisma from "@/utils/prisma";
 import { getUser } from "@/utils/supabase/server";
 import React from "react";
+import { ExerciseCard } from "./components/ExerciseCard";
 
 export default async function CompletedExercisesPage() {
   const user = await getUser();
@@ -9,7 +11,7 @@ export default async function CompletedExercisesPage() {
     return null;
   }
 
-  const completedExercises = await prisma.exercise.findMany({
+  const completedExercises: ExerciseWithSets[] = await prisma.exercise.findMany({
     where: {
       userId: user.id,
       timesCompleted: {
@@ -17,21 +19,19 @@ export default async function CompletedExercisesPage() {
       },
     },
     include: {
-      workout: true,
+      sets: true,
     },
   });
 
   return (
     <div>
       <h1 className="text-2xl font-bold">Your Completed Exercises</h1>
-      <div>
+      <div className="mt-10 flex flex-wrap gap-4">
+        {completedExercises.length === 0 && (
+          <p className="flex w-full justify-center text-center text-xs text-secondary">No completed exercises yet...</p>
+        )}
         {completedExercises.map((exercise) => (
-          <div key={exercise.id}>
-            <h2>{exercise.name}</h2>
-            <p>{exercise.description}</p>
-            <p>{exercise.timesCompleted} times completed</p>
-            <p>Workout: {exercise.workout.name}</p>
-          </div>
+          <ExerciseCard key={exercise.id} exercise={exercise} />
         ))}
       </div>
     </div>

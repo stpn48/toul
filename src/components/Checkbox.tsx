@@ -5,10 +5,11 @@ import { twMerge } from "tailwind-merge";
 
 type Props = {
   onClick?: () => void;
+  initialIsChecked?: boolean;
 };
 
-export function Checkbox({ onClick }: Props) {
-  const [isChecked, setIsChecked] = useState(false);
+export function Checkbox({ onClick, initialIsChecked = false }: Props) {
+  const [isChecked, setIsChecked] = useState(initialIsChecked);
 
   const handleOnClick = useCallback(() => {
     if (onClick) {

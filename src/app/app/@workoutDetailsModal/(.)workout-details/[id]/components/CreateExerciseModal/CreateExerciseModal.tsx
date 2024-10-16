@@ -48,6 +48,7 @@ export function CreateExerciseModal({ workoutId }: Props) {
         sets: [],
         createdAt: new Date(),
         repHistory: [],
+        lastCompletedAt: null,
         timesCompleted: 0,
         description: null,
         name: "ss",
