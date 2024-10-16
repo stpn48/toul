@@ -26,16 +26,17 @@ model Workout {
 }
 
 model Exercise {
-  id             String   @id @default(uuid())
-  createdAt      DateTime @default(now())
-  timesCompleted Int      @default(0)
-  repHistory     Int[]    @default([])
-  workoutId      String // Id of the workout this exercise belongs to
-  name           String
-  description    String?
-  workout        Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
-  sets           Set[]
-  userId         String
+  id              String    @id @default(uuid())
+  createdAt       DateTime  @default(now())
+  timesCompleted  Int       @default(0)
+  repHistory      Int[]     @default([])
+  workoutId       String // Id of the workout this exercise belongs to
+  name            String
+  lastCompletedAt DateTime?
+  description     String?
+  workout         Workout   @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  sets            Set[]
+  userId          String
 }
 
 model Set {
