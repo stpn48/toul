@@ -18,11 +18,11 @@ export function ExerciseList({ workoutId }: Props) {
   const [exercises, setExercises] = useState<ExerciseWithSets[]>([]);
 
   useEffect(() => {
-    setExercises(optimisticExercises.filter((exercise) => exercise.workoutId === workoutId));
+    setExercises(optimisticExercises.filter((exercise) => exercise.workoutId === workoutId || exercise.workoutId === "1"));
   }, [optimisticExercises, workoutId]);
 
   return (
-    <div className="text-main dark:text-dark-main mt-4 h-[90%] gap-4 overflow-y-auto">
+    <div className="mt-4 h-[90%] gap-4 overflow-y-auto text-main dark:text-dark-main">
       <div className="flex w-full justify-end">
         <Button onClick={() => setShowCreateExerciseModal(true)} className="flex items-center gap-2 rounded-full px-2 py-1 pr-3">
           <PlusIcon />
