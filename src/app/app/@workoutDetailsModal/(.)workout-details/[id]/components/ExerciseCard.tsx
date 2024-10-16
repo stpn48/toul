@@ -9,12 +9,14 @@ type Props = {
 };
 
 export function ExerciseCard({ exercise }: Props) {
-  const { setEditingExerciseId } = useModalVisibility();
+  const { setEditingExerciseDetails } = useModalVisibility();
 
   return (
     <div
       onClick={() => {
-        if (exercise.id !== "1") setEditingExerciseId(exercise.id); // if exercise is not optimistic, open modal (id 1 says its optimistic  )
+        if (exercise.id !== "1") {
+          setEditingExerciseDetails(exercise);
+        } // if exercise is not optimistic, open modal (id 1 says its optimistic  )
       }}
       className="flex w-full cursor-pointer rounded-md border border-main p-5 text-main hover:border-hover dark:border-dark-main dark:text-dark-main dark:hover:border-dark-hover"
     >
