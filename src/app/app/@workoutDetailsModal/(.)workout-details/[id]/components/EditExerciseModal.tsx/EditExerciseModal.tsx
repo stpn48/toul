@@ -1,48 +1,42 @@
 "use client";
 
-import { removeExercise } from "@/app/actions/removeExercise";
-import { updateExercise } from "@/app/actions/updateExercise";
-import { AddSetModal } from "@/app/app/@workoutDetailsModal/(.)workout-details/[id]/components/CreateExerciseModal/AddSetModal";
-import CreateExerciseModalHeader from "@/app/app/@workoutDetailsModal/(.)workout-details/[id]/components/CreateExerciseModal/CreateExerciseModalHeader";
-import { SetList } from "@/app/app/@workoutDetailsModal/(.)workout-details/[id]/components/CreateExerciseModal/SetList";
-import { ConfirmationModal } from "@/components/ConfirmationModal";
-import Input from "@/components/Input";
-import { Modal } from "@/components/Modal";
-import { useOptimisticWorkouts } from "@/context/useOptimisticWorkouts";
-import { useExerciseDetails } from "@/hooks/useExerciseDetails";
-import { useModalVisibility } from "@/store/useModalVisiblity";
-import { CreateExercise, CreateSet } from "@/types/types";
-import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { AddSetModal } from "../AddSetModal";
 import { EditSetModal } from "../EditSetModal";
-import { EditExerciseButton } from "./EditExerciseButton";
-import { LoadingSkeleton } from "./LoadingSkeleton";
-import { RemoveExerciseButton } from "./RemoveExerciseButton";
+import { RemoveExerciseButton } from "../RemoveExerciseButton";
+import { SetList } from "../SetList";
+import { SubmitProps } from "../WorkoutDetailsModal";
+import { CreateSet } from "@/types/types";
+import { useModalVisibility } from "@/store/useModalVisiblity";
+import { Modal } from "@/components/Modal";
+import Input from "@/components/Input";
+import Button from "@/components/Button";
+import { ConfirmationModal } from "@/components/ConfirmationModal";
+import { removeExercise } from "@/app/actions/removeExercise";
 
 type Props = {
-  exerciseId: string | null;
+  onSubmit: (arg0: SubmitProps) => Promise<void>;
+  submitButtonText: string;
+  closeModal: () => void;
+  removeButton?: boolean;
 };
 
-export function EditExerciseModal({ exerciseId }: Props) {
-  const { showCreateSetModal, setEditingExerciseId } = useModalVisibility();
-  const { updateOptimisticExercise, removeOptimisticExercise } = useOptimisticWorkouts();
+export function ExerciseModal({ onSubmit, submitButtonText, closeModal, removeButton }: Props) {
+  const { showCreateSetModal, setEditingExerciseDetails, editingExerciseDetails: exerciseDetails } = useModalVisibility();
+  const { removeOptimisticExercise } = useOptimisticWorkouts();
 
-  const queryClient = useQueryClient();
-
-  const { data: exercise, isLoading, isFetching, isRefetching, isSuccess } = useExerciseDetails(exerciseId);
-
-  const [exerciseName, setExerciseName] = useState<string | null>(null);
-  const [exerciseDescription, setExerciseDescription] = useState<string | null>(null);
-  const [exerciseSets, setExerciseSets] = useState<CreateSet[]>([]);
+  const [exerciseName, setExerciseName] = useState<string>(exerciseDetails?.name || "");
+  const [exerciseDescription, setExerciseDescription] = useState<string>(exerciseDetails?.description || "");
+  const [exerciseSets, setExerciseSets] = useState<CreateSet[]>(exerciseDetails?.sets || []);
 
   const [editingSetIndex, setEditingSetIndex] = useState<number | null>(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const { madeChanges } = useMadeChanges(
-    exercise?.name || "",
-    exercise?.description || "",
-    exercise?.sets || [],
+    exerciseDetails?.name || "",
+    exerciseDetails?.description || "",
+    exerciseDetails?.sets || [],
     exerciseName,
     exerciseDescription,
     exerciseSets,
@@ -50,87 +44,38 @@ export function EditExerciseModal({ exerciseId }: Props) {
 
   const resetForm = useCallback(() => {
     setExerciseName("");
-    setExerciseDescription(null);
+    setExerciseDescription("");
     setExerciseSets([]);
   }, [setExerciseName, setExerciseDescription, setExerciseSets]);
 
-  const handleEditExercise = useCallback(async () => {
-    if (!exercise) {
-      return;
-    }
-    // validate fields
-    if (!exerciseName || exerciseSets.length === 0) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-
-    const updatedExercise: CreateExercise = {
-      name: exerciseName,
-      description: exerciseDescription,
-      sets: exerciseSets,
-    };
-
-    updateOptimisticExercise(exercise.id, exerciseName, exerciseDescription, exerciseSets);
-
-    // close modal
-    setEditingExerciseId(null);
-
-    // add exercise to workout in db
-    const { error } = await updateExercise(updatedExercise, exercise.id);
-
-    // if error show error toast
-    if (error) {
-      toast.error(error);
-
-      // no error
-    } else {
-      // invalidate query
-      queryClient.invalidateQueries({ queryKey: ["exercise", { exerciseId }] });
-      resetForm();
-    }
-  }, [exerciseName, exerciseSets, exerciseDescription, exercise, updateOptimisticExercise, queryClient]);
-
   const handleRemoveExercise = useCallback(async () => {
-    if (!exerciseId) {
+    if (!exerciseDetails?.id) {
       return;
     }
 
-    removeOptimisticExercise(exerciseId);
+    removeOptimisticExercise(exerciseDetails.id);
 
-    setEditingExerciseId(null);
+    setEditingExerciseDetails(null);
 
-    const { error } = await removeExercise(exerciseId);
+    const { error } = await removeExercise(exerciseDetails.id);
 
     if (error) {
       toast.error(error);
       return;
     }
-  }, [exerciseId, removeOptimisticExercise]);
+  }, [exerciseDetails?.id, removeOptimisticExercise]);
 
   const handleCloseModal = useCallback(() => {
     if (madeChanges) {
       setShowConfirmationModal(true);
     } else {
-      setEditingExerciseId(null);
+      closeModal();
     }
   }, [madeChanges]);
 
-  useEffect(() => {
-    if (!isSuccess) {
-      return;
-    }
-    setExerciseName(exercise?.name || "");
-    setExerciseDescription(exercise?.description || "");
-    setExerciseSets(exercise?.sets || []);
-  }, [isSuccess, exercise]);
-
-  if (isLoading || isFetching || isRefetching) {
-    return <LoadingSkeleton />;
-  }
-
   return (
     <Modal className="flex h-[70%] w-[70%] flex-row text-sm" closeModal={handleCloseModal}>
-      <section className="bg-secondary dark:bg-dark-secondary text-main dark:text-dark-main w-[30%] rounded-l-lg p-6">
+      <section className="w-[30%] rounded-l-lg bg-secondary p-6 text-main dark:bg-dark-secondary dark:text-dark-main">
         <Input
           disableLabel
           value={exerciseName || ""}
@@ -138,14 +83,14 @@ export function EditExerciseModal({ exerciseId }: Props) {
           error={exerciseName === ""}
           errorLabel={"This field is required"}
           placeholder="Exercise Name"
-          className="dark:text-dark-main w-full border-0 bg-inherit text-lg font-bold"
+          className="w-full border-0 bg-inherit text-lg font-bold dark:text-dark-main"
         />
         <Input
           disableLabel
           value={exerciseDescription || ""}
           onChange={(e) => setExerciseDescription(e.target.value)}
           placeholder="Exercise Description"
-          className="dark:text-dark-main w-full border-0 bg-inherit"
+          className="w-full border-0 bg-inherit dark:text-dark-main"
         />
       </section>
 
@@ -153,8 +98,21 @@ export function EditExerciseModal({ exerciseId }: Props) {
         <h1 className="text-xs font-bold text-secondary">SETS</h1>
         <SetList exerciseSets={exerciseSets} setEditingSetIndex={setEditingSetIndex} />
         <div className="absolute bottom-4 right-4 flex gap-3">
-          <RemoveExerciseButton handleRemoveExercise={handleRemoveExercise} />
-          <EditExerciseButton handleEditExercise={handleEditExercise} />
+          {removeButton && <RemoveExerciseButton handleRemoveExercise={handleRemoveExercise} />}
+          <Button
+            onClick={() =>
+              onSubmit({
+                closeModal,
+                resetForm,
+                exerciseName,
+                exerciseDescription,
+                exerciseSets,
+                exerciseId: exerciseDetails?.id || "",
+              })
+            }
+          >
+            {submitButtonText}
+          </Button>
         </div>
       </section>
 
@@ -173,7 +131,7 @@ export function EditExerciseModal({ exerciseId }: Props) {
         <ConfirmationModal
           message="Are you sure you want to discard all changes?"
           closeModal={() => setShowConfirmationModal(false)}
-          confirmAction={() => setEditingExerciseId(null)}
+          confirmAction={() => setEditingExerciseDetails(null)}
         />
       )}
     </Modal>
@@ -203,4 +161,7 @@ function useMadeChanges(
   }, [initialExerciseName, initialExerciseDescription, initialExerciseSets, exerciseName, exerciseDescription, exerciseSets]);
 
   return { madeChanges };
+}
+function useOptimisticWorkouts(): { removeOptimisticExercise: any } {
+  throw new Error("Function not implemented.");
 }
