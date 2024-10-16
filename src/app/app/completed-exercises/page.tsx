@@ -25,8 +25,8 @@ export default async function CompletedExercisesPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Your Completed Exercises</h1>
-      <div className="mt-10 flex flex-wrap gap-4">
+      <h1 className="flex w-full justify-center text-2xl font-bold">your completed exercises</h1>
+      <div className="mt-10 flex flex-wrap justify-center gap-4">
         {completedExercises.length === 0 && (
           <p className="flex w-full justify-center text-center text-xs text-secondary">No completed exercises yet...</p>
         )}
