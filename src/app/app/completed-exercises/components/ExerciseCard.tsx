@@ -1,20 +1,32 @@
+"use client";
+
+import { useModalVisibility } from "@/store/useModalVisiblity";
 import { ExerciseWithSets } from "@/types/types";
-import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { ExerciseDetailsModal } from "./ExerciseDetailsModal";
 
 type Props = {
   exercise: ExerciseWithSets;
 };
 
 export function ExerciseCard({ exercise }: Props) {
+  const [showExerciseDetailsModal, setShowExerciseDetailsModal] = useState(false);
+
   return (
-    <Link href={`/app/exercise-details/${exercise.id}`}>
-      <div className="cursor-pointer rounded-lg border border-main p-4 text-sm hover:border-hover dark:border-dark-main dark:hover:border-dark-hover">
+    <>
+      <div
+        onClick={() => setShowExerciseDetailsModal(true)}
+        className="cursor-pointer rounded-lg border border-main p-4 text-sm hover:border-hover dark:border-dark-main dark:hover:border-dark-hover"
+      >
         <h1>{exercise.name}</h1>
-        <p className="text-xs text-secondary">{exercise.description}</p>
-        <p className="text-xs text-secondary">Last Completed: {exercise.lastCompletedAt?.toLocaleDateString()}</p>
+        <p className="mb-4 text-xs text-secondary">{exercise.description}</p>
         <p className="text-xs text-secondary">Times Completed: {exercise.timesCompleted}</p>
+        <p className="text-xs text-secondary">Last Completed: {exercise.lastCompletedAt?.toLocaleDateString()}</p>
       </div>
-    </Link>
+
+      {showExerciseDetailsModal && (
+        <ExerciseDetailsModal exercise={exercise} closeModal={() => setShowExerciseDetailsModal(false)} />
+      )}
+    </>
   );
 }
