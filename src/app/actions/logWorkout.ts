@@ -43,6 +43,7 @@ export async function logWorkout(workoutId: string, loggedExercises: LoggedExerc
         await prisma.exercise.update({
           where: { id: existingExercise.id },
           data: {
+            lastCompletedAt: new Date(),
             timesCompleted: {
               increment: 1,
             },
