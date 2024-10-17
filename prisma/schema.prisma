@@ -21,6 +21,7 @@ model Workout {
   name              String
   description       String?
   difficulty        String
+  lastCompletedAt   DateTime?
   estimatedDuration String
   exercises         Exercise[]
 }
