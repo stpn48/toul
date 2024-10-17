@@ -12,7 +12,7 @@ export function SettingButton({ className }: Props) {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <div className="absolute right-4 top-4">
+    <div className="fixed right-4 top-4">
       <div className="relative flex flex-col items-end gap-2">
         <button onClick={() => setShowMenu(true)} className={twMerge("text-black dark:text-white", className)}>
           <svg
