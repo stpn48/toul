@@ -12,7 +12,7 @@ export default function PageContainer({ children }: Props) {
 
   return (
     <div
-      className={`mx-auto h-full w-full max-w-[80%] p-10 transition-all duration-[300ms] ${showSidebar ? "pl-[315px]" : "mx-auto max-w-[70%]"}`}
+      className={`mx-auto h-full w-full max-w-[80%] p-10 transition-all duration-[300ms] ${showSidebar ? "max-w-[100%] pl-[315px]" : "mx-auto max-w-[70%]"}`}
     >
       {children}
     </div>
