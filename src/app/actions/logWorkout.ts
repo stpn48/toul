@@ -26,6 +26,7 @@ export async function logWorkout(workoutId: string, loggedExercises: LoggedExerc
         timesCompleted: {
           increment: 1,
         },
+        lastCompleted: new Date(),
       },
     });
 
