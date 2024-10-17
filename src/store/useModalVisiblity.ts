@@ -1,3 +1,5 @@
+import { ExerciseWithSets, WorkoutWithExercises } from "@/types/types";
+import { Workout } from "@prisma/client";
 import { create } from "zustand";
 
 type Store = {
@@ -13,8 +15,13 @@ type Store = {
   showEditExerciseModal: boolean;
   setShowEditExerciseModal: (val: boolean) => void;
 
-  editingExerciseId: string | null;
-  setEditingExerciseId: (val: string | null) => void;
+  editingExerciseDetails: ExerciseWithSets | null;
+  setEditingExerciseDetails: (val: ExerciseWithSets | null) => void;
+
+  showLogWorkoutModal: boolean;
+  setShowLogWorkoutModal: (val: boolean) => void;
+
+  resetStore: () => void;
 };
 export const useModalVisibility = create<Store>((set) => ({
   showCreateWorkoutModal: false,
@@ -29,6 +36,18 @@ export const useModalVisibility = create<Store>((set) => ({
   showEditExerciseModal: false,
   setShowEditExerciseModal: (val) => set({ showEditExerciseModal: val }),
 
-  editingExerciseId: null,
-  setEditingExerciseId: (val) => set({ editingExerciseId: val }),
+  editingExerciseDetails: null,
+  setEditingExerciseDetails: (val) => set({ editingExerciseDetails: val }),
+
+  showLogWorkoutModal: false,
+  setShowLogWorkoutModal: (val) => set({ showLogWorkoutModal: val }),
+
+  resetStore: () =>
+    set({
+      showCreateExerciseModal: false,
+      showEditExerciseModal: false,
+      showLogWorkoutModal: false,
+      editingExerciseDetails: null,
+      showExerciseDetailsModal: false,
+    }),
 }));
