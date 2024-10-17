@@ -10,6 +10,13 @@ const geistSans = localFont({
   variable: "--font-geist-sans",
   weight: "300 900",
 });
+
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
+
 export const metadata: Metadata = {
   title: "toul - signup",
   description: "toul.app",
@@ -18,7 +25,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} flex font-geistSans text-sm font-medium antialiased dark:bg-dark`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} flex font-geistSans text-sm font-medium antialiased dark:bg-dark`}
+      >
         <ReactQueryProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
