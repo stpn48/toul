@@ -16,6 +16,7 @@ const config: Config = {
       },
       fontFamily: {
         geistSans: ["var(--font-geist-sans)", "monospace"],
+        geistMono: ["var(--font-geist-mono)", "monospace"],
       },
       textColor: {
         main: "#000000",
@@ -28,7 +29,7 @@ const config: Config = {
       backgroundColor: {
         secondary: "#faf8f6",
         hover: "#eeeeee",
-        dark: "#161616",
+        dark: "#0f0f0f",
         "dark-secondary": "#000000",
         "dark-hover": "#212121",
       },
