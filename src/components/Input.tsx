@@ -47,7 +47,7 @@ export default function Input({ className, placeholder, onChange, error, errorLa
             animate={{ scale: 1 }} // Move further up when animated
             initial={{ scale: 1.1 }} // Start below
             transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="absolute -top-[9px] left-2 px-px text-xs text-secondary dark:bg-dark"
+            className="absolute -top-[9px] left-2 bg-white px-px text-xs text-secondary dark:bg-dark"
           >
             {placeholder}
           </motion.p>
