@@ -14,7 +14,7 @@ export function Modal({ closeModal, className, transparentBackdrop, children }: 
     <div
       onClick={closeModal}
       className={twMerge(
-        "fixed inset-0 flex h-screen w-screen items-center justify-center bg-stone-900 bg-opacity-50",
+        "fixed inset-0 flex h-screen w-screen items-center justify-center bg-stone-900 bg-opacity-50 backdrop-blur-sm",
         transparentBackdrop && "bg-transparent",
       )}
     >
@@ -26,7 +26,8 @@ export function Modal({ closeModal, className, transparentBackdrop, children }: 
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="absolute right-2 top-2 z-10" onClick={closeModal}>
+        {/* TODO: The X button becomes invisible when scrolling down fix */}
+        <button className="absolute right-3 top-2 z-10" onClick={closeModal}>
           <XMarkIcon />
         </button>
         {children}
