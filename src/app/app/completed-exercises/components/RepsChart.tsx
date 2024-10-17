@@ -15,7 +15,6 @@ export function RepsChart({ reps }: Props) {
 
   return (
     <div className="flex items-center justify-center">
-      {" "}
       {/* Flexbox for centering */}
       <ResponsiveContainer className={"rounded-lg border border-main dark:border-dark-main"} width="100%" height={500}>
         <LineChart
