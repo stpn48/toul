@@ -11,6 +11,7 @@ type LogWorkoutState = {
   setCurrExerciseIndex: (index: number | ((prevIndex: number) => number)) => void;
   setLoggedExercises: (val: LoggedExercises | ((prev: LoggedExercises) => LoggedExercises)) => void;
   setCanGoNext: (status: boolean) => void;
+  resetStore: () => void;
 };
 
 export const useLogWorkoutStore = create<LogWorkoutState>((set) => ({
@@ -26,4 +27,8 @@ export const useLogWorkoutStore = create<LogWorkoutState>((set) => ({
       loggedExercises: typeof val === "function" ? val(state.loggedExercises) : val,
     })),
   setCanGoNext: (status) => set({ canGoNext: status }),
+
+  resetStore: () => {
+    set({ currExerciseIndex: 0, loggedExercises: {}, canGoNext: false });
+  },
 }));
