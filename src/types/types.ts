@@ -26,3 +26,13 @@ export type CreateExercise = {
   description: string | null;
   sets: CreateSet[];
 };
+
+export type Filter =
+  | "a-z"
+  | "z-a"
+  | "times completed lowest to highest"
+  | "times completed highest to lowest"
+  | "last completed latest to oldest"
+  | "last completed oldest to latest"
+  | "created latest to oldest"
+  | "created oldest to latest";
