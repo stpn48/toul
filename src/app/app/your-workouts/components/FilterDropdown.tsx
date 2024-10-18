@@ -16,7 +16,7 @@ const filters = [
 ];
 
 type Props = {
-  setFilter: React.Dispatch<React.SetStateAction<string>>;
+  setFilter: (filter: Filter) => void;
   closeDropdown: () => void;
 };
 
@@ -37,13 +37,13 @@ export function FilterDropdown({ setFilter, closeDropdown }: Props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="absolute top-5 z-20 flex flex-col gap-2 rounded-lg border border-main bg-secondary p-4 text-sm dark:border-dark-main dark:bg-dark-secondary"
+        className="absolute top-10 z-20 flex flex-col gap-2 rounded-lg border border-main bg-secondary p-4 text-sm dark:border-dark-main dark:bg-dark-secondary"
       >
         {filters.map((filter) => (
           <div key={filter}>
             <button
               onClick={() => handleChoiceClick(filter as Filter)}
-              className="whitespace-nowrap rounded-lg p-2 hover:bg-hover dark:hover:bg-dark-hover"
+              className="w-full whitespace-nowrap rounded-lg p-2 hover:bg-hover dark:hover:bg-dark-hover"
             >
               {filter}
             </button>
