@@ -3,6 +3,8 @@ import { Workout } from "@prisma/client";
 import { create } from "zustand";
 
 type Store = {
+  query: string;
+  setQuery: (query: string) => void;
   filter: Filter;
   setFilter: (filter: Filter) => void;
   filteredOptimisticWorkouts: Workout[];
@@ -10,6 +12,8 @@ type Store = {
 };
 
 export const useWorkoutListStore = create<Store>((set) => ({
+  query: "",
+  setQuery: (query) => set(() => ({ query })),
   filter: "a-z",
   setFilter: (filter) => set(() => ({ filter })),
   filteredOptimisticWorkouts: [],
