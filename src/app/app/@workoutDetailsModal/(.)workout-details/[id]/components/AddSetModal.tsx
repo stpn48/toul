@@ -58,19 +58,11 @@ export function AddSetModal({ setExerciseSets }: Props) {
   return (
     <Modal className="flex h-fit w-fit flex-col gap-4 p-10" closeModal={() => setShowCreateSetModal(false)}>
       <h1 className="mb-4 flex w-full justify-center text-2xl font-bold">Add Set</h1>
-      <Input
-        error={setName === ""}
-        errorLabel={"This field is required"}
-        value={setName || ""}
-        onChange={(e) => setSetName(e.target.value)}
-        placeholder="Set Name"
-      />
+      <Input value={setName || ""} onChange={(e) => setSetName(e.target.value)} placeholder="Set Name" />
       <Input
         min={1}
         type="number"
         value={targetRepsString || ""}
-        error={targetRepsString === ""}
-        errorLabel={"This field is required"}
         onChange={(e) => setTargetRepsString(e.target.value)}
         placeholder="Target Reps"
       />
