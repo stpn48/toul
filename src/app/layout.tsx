@@ -29,7 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         className={`${geistSans.variable} ${geistMono.variable} flex font-geistSans text-sm font-medium antialiased dark:bg-dark`}
       >
         <ReactQueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ThemeProvider attribute="class" defaultTheme="light">
             {children}
             <Toaster />
           </ThemeProvider>
