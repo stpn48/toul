@@ -31,7 +31,7 @@ export async function updateWorkoutDetails(
         estimatedDuration: workoutEstimatedDuration,
       },
     });
-  } catch (error) {
+  } catch {
     return { error: "Error updating workout" }; //TODO: Add better error handling
   }
 
