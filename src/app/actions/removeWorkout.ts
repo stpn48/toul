@@ -36,7 +36,7 @@ export async function removeWorkout(workoutId: string) {
         id: workoutId,
       },
     });
-  } catch (error) {
+  } catch {
     return { error: "Error removing workout" };
   }
 
