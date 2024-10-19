@@ -19,7 +19,7 @@ export function DeleteWorkoutButton({ workoutId }: { workoutId: string }) {
       toast.error(response.error);
       return;
     }
-  }, [router]);
+  }, [router, workoutId]);
 
   return (
     <div className="z-50">
