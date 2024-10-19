@@ -26,7 +26,7 @@ export async function logWorkout(workoutId: string, loggedExercises: LoggedExerc
         timesCompleted: {
           increment: 1,
         },
-        lastCompleted: new Date(),
+        lastCompletedAt: new Date(),
       },
     });
 
@@ -60,7 +60,7 @@ export async function logWorkout(workoutId: string, loggedExercises: LoggedExerc
     }
 
     revalidatePath("/app/completed-exercises");
-  } catch (error) {
+  } catch {
     return { error: "Error logging workout" }; // TODO: Add better error handling
   }
 }
