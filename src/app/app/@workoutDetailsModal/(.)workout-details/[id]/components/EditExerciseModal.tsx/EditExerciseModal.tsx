@@ -1,5 +1,13 @@
 "use client";
 
+import { removeExercise } from "@/app/actions/removeExercise";
+import Button from "@/components/Button";
+import { ConfirmationModal } from "@/components/ConfirmationModal";
+import Input from "@/components/Input";
+import { Modal } from "@/components/Modal";
+import { useOptimisticWorkouts } from "@/context/useOptimisticWorkouts";
+import { useModalVisibility } from "@/store/useModalVisiblity";
+import { CreateSet } from "@/types/types";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AddSetModal } from "../AddSetModal";
@@ -7,13 +15,6 @@ import { EditSetModal } from "../EditSetModal";
 import { RemoveExerciseButton } from "../RemoveExerciseButton";
 import { SetList } from "../SetList";
 import { SubmitProps } from "../WorkoutDetailsModal";
-import { CreateSet } from "@/types/types";
-import { useModalVisibility } from "@/store/useModalVisiblity";
-import { Modal } from "@/components/Modal";
-import Input from "@/components/Input";
-import Button from "@/components/Button";
-import { ConfirmationModal } from "@/components/ConfirmationModal";
-import { removeExercise } from "@/app/actions/removeExercise";
 
 type Props = {
   onSubmit: (arg0: SubmitProps) => Promise<void>;
@@ -63,7 +64,7 @@ export function ExerciseModal({ onSubmit, submitButtonText, closeModal, removeBu
       toast.error(error);
       return;
     }
-  }, [exerciseDetails?.id, removeOptimisticExercise]);
+  }, [exerciseDetails?.id, removeOptimisticExercise, closeModal, resetForm, setEditingExerciseDetails]);
 
   const handleCloseModal = useCallback(() => {
     if (madeChanges) {
@@ -161,7 +162,4 @@ function useMadeChanges(
   }, [initialExerciseName, initialExerciseDescription, initialExerciseSets, exerciseName, exerciseDescription, exerciseSets]);
 
   return { madeChanges };
-}
-function useOptimisticWorkouts(): { removeOptimisticExercise: any } {
-  throw new Error("Function not implemented.");
 }
