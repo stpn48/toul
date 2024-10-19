@@ -38,7 +38,7 @@ export async function updateExercise(newExercise: CreateExercise, exerciseId: st
         },
       },
     });
-  } catch (error) {
+  } catch {
     return { error: "Error updating exercise" }; //TODO: Add better error handling
   }
 
