@@ -1,5 +1,4 @@
-import { ExerciseWithSets, WorkoutWithExercises } from "@/types/types";
-import { Workout } from "@prisma/client";
+import { ExerciseWithSets } from "@/types/types";
 import { create } from "zustand";
 
 type Store = {
@@ -48,6 +47,5 @@ export const useModalVisibility = create<Store>((set) => ({
       showEditExerciseModal: false,
       showLogWorkoutModal: false,
       editingExerciseDetails: null,
-      showExerciseDetailsModal: false,
     }),
 }));

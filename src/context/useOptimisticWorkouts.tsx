@@ -83,6 +83,7 @@ export function OptimisticWorkoutsProvider({ children, initialWorkouts, initialE
             id: uuidv4(),
             createdAt: new Date(),
             exerciseId,
+            isWarmupSet: set.isWarmupSet,
           })),
         };
 

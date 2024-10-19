@@ -2,7 +2,7 @@
 
 import { Filter } from "@/types/types";
 import { motion } from "framer-motion";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 
 const filters = [
   "a-z",
@@ -31,8 +31,10 @@ export function FilterDropdown({ setFilter, closeDropdown }: Props) {
 
   return (
     <>
+      {/* Invisible backdrop */}
       <div className="fixed inset-0 z-10 h-screen w-screen" onClick={closeDropdown} />
 
+      {/* Dropdown */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

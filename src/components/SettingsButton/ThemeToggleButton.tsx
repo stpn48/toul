@@ -8,9 +8,7 @@ import { MenuButton } from "./MenuButton";
 const MOON_ICON_URL = "/MoonIcon.svg";
 const SUN_ICON_URL = "/SunIcon.svg";
 
-type Props = {};
-
-export function ThemeToggleButton({}: Props) {
+export function ThemeToggleButton() {
   const { resolvedTheme, setTheme } = useTheme();
 
   const handleChangeTheme = useCallback(() => {

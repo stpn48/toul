@@ -2,7 +2,6 @@
 
 import SignOutButton from "@/app/app/components/SignOutButton";
 import React from "react";
-import { MenuButton } from "./MenuButton";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 
 type Props = {

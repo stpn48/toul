@@ -38,7 +38,7 @@ export function SetList({ exercise }: Props) {
     <div className="mt-4 flex flex-col gap-2">
       <h1 className="text-xs font-bold text-secondary">SETS</h1>
       {exercise.sets.map((set, index) => (
-        <div className="flex items-center justify-between">
+        <div key={set.id} className="flex items-center justify-between">
           <h1>{set.name}</h1>
           <Input
             value={loggedExercises[exercise.name]?.[index] !== -1 ? loggedExercises[exercise.name]?.[index] : ""}

@@ -7,7 +7,6 @@ import { Modal } from "@/components/Modal";
 import { useOptimisticWorkouts } from "@/context/useOptimisticWorkouts";
 import { useModalVisibility } from "@/store/useModalVisiblity";
 import { CreateExercise, CreateSet, ExerciseWithSets, WorkoutWithExercises } from "@/types/types";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useCallback } from "react";
 import toast from "react-hot-toast";
@@ -80,7 +79,7 @@ export function WorkoutDetailsModal({ workout }: Props) {
   );
 
   const handleCreateExercise = useCallback(
-    async ({ closeModal, resetForm, exerciseName, exerciseDescription, exerciseSets, exerciseId }: SubmitProps) => {
+    async ({ closeModal, resetForm, exerciseName, exerciseDescription, exerciseSets }: SubmitProps) => {
       // validate fields
       if (!exerciseName || exerciseSets.length === 0) {
         toast.error("Please fill in all fields");

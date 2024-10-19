@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import React, { InputHTMLAttributes, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -40,33 +40,27 @@ export default function Input({ className, placeholder, onChange, error, errorLa
       />
 
       {/* There is no error and the input is not empty show the label */}
-      <AnimatePresence>
-        {!disableLabel && showLabel && !error && (
-          <motion.p
-            exit={{ opacity: 0 }} // Move up on exit
-            animate={{ scale: 1 }} // Move further up when animated
-            initial={{ scale: 1.1 }} // Start below
-            transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="absolute -top-[9px] left-2 bg-white px-px text-xs text-secondary dark:bg-dark"
-          >
-            {placeholder}
-          </motion.p>
-        )}
-      </AnimatePresence>
+      {!disableLabel && showLabel && !error && (
+        <motion.p
+          animate={{ scale: 1 }} // Move further up when animated
+          initial={{ scale: 1.1 }} // Start below
+          transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute -top-[9px] left-2 bg-white px-px text-xs text-secondary dark:bg-dark"
+        >
+          {placeholder}
+        </motion.p>
+      )}
 
-      <AnimatePresence>
-        {!disableLabel && error && (
-          <motion.p
-            exit={{ opacity: 0 }} // Move up on exit
-            animate={{ scale: 1 }} // Move further up when animated
-            initial={{ scale: 1.1 }} // Start below
-            transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="absolute -top-[9px] left-2 px-px text-xs text-[#e22743] dark:bg-dark"
-          >
-            {errorLabel}
-          </motion.p>
-        )}
-      </AnimatePresence>
+      {!disableLabel && error && (
+        <motion.p
+          animate={{ scale: 1 }} // Move further up when animated
+          initial={{ scale: 1.1 }} // Start below
+          transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+          className="absolute -top-[9px] left-2 px-px text-xs text-[#e22743] dark:bg-dark"
+        >
+          {errorLabel}
+        </motion.p>
+      )}
     </div>
   );
 }

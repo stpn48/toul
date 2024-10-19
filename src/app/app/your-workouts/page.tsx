@@ -1,7 +1,5 @@
 import React from "react";
-import { FilterDropdownButton } from "./components/FilterDropdownButton";
-import { Filters } from "./components/Filters";
-import { SearchBar } from "./components/SearchBar";
+import { Filters } from "../../../components/Filters";
 import { WorkoutList } from "./components/WorkoutList";
 
 export default async function YourWorkoutsPage() {

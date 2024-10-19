@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 const links = [
@@ -20,7 +19,7 @@ export function SidebarLinks() {
       {links.map((link) => (
         <Link
           prefetch={true}
-          className="dark:hover:bg-dark-hover text-main dark:text-dark-main hover:bg-hover flex w-full items-center gap-2 rounded-lg p-2"
+          className="flex w-full items-center gap-2 rounded-lg p-2 text-main hover:bg-hover dark:text-dark-main dark:hover:bg-dark-hover"
           key={link.title}
           href={link.href}
         >

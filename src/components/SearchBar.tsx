@@ -1,16 +1,14 @@
 "use client";
 
 import Input from "@/components/Input";
-import { useWorkoutListStore } from "@/store/useWorkoutListStore";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-type Props = {};
-
-export function SearchBar({}: Props) {
-  const { query, setQuery } = useWorkoutListStore();
-
+export function SearchBar() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [query, setQuery] = useState(searchParams.get("query") || "");
 
   useEffect(() => {
     // update url
@@ -26,5 +24,5 @@ export function SearchBar({}: Props) {
     router.replace("?" + searchParams.toString());
   }, [query, router]);
 
-  return <Input placeholder="Query" value={query} onChange={(e) => setQuery(e.target.value)} className="w-full" />;
+  return <Input placeholder="Search" value={query} onChange={(e) => setQuery(e.target.value)} className="w-full" />;
 }

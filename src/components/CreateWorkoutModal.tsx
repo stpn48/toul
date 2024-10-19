@@ -12,9 +12,7 @@ import { Modal } from "./Modal";
 import Select from "./Select";
 import Textarea from "./Textarea";
 
-type Props = {};
-
-export function CreateWorkoutModal({}: Props) {
+export function CreateWorkoutModal() {
   const { showCreateWorkoutModal, setShowCreateWorkoutModal } = useModalVisibility();
   const { addWorkout } = useOptimisticWorkouts();
 
@@ -39,6 +37,8 @@ export function CreateWorkoutModal({}: Props) {
       description: workoutDescription,
       difficulty: workoutDifficulty,
       estimatedDuration: workoutEstimatedDuration,
+      exercises: [],
+      lastCompletedAt: null,
     };
 
     addWorkout(newWorkout);
@@ -56,7 +56,7 @@ export function CreateWorkoutModal({}: Props) {
       toast.error(error);
       return;
     }
-  }, [workoutDescription, workoutDifficulty, workoutEstimatedDuration, workoutName]);
+  }, [workoutDescription, workoutDifficulty, workoutEstimatedDuration, workoutName, setShowCreateWorkoutModal, addWorkout]);
 
   if (!showCreateWorkoutModal) {
     return null;

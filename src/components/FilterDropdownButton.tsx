@@ -1,17 +1,15 @@
 "use client";
 
-import { useWorkoutListStore } from "@/store/useWorkoutListStore";
 import { AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FilterDropdown } from "./FilterDropdown";
 
-type Props = {};
-
-export function FilterDropdownButton({}: Props) {
-  const { filter, setFilter } = useWorkoutListStore();
-
+export function FilterDropdownButton() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [filter, setFilter] = useState(searchParams.get("filter") || "a-z");
 
   const [showDropdown, setShowDropdown] = useState(false);
 

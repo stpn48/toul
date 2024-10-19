@@ -4,9 +4,8 @@ import { updateWorkoutDetails } from "@/app/actions/updateWorkoutDetails";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import { useOptimisticWorkouts } from "@/context/useOptimisticWorkouts";
 import { Workout } from "@prisma/client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 
@@ -55,6 +54,7 @@ export function WorkoutDetailsSectionContent({ workout }: Props) {
 
   return (
     <>
+      {/* backdrop when is editing */}
       {isEditing && (
         <div
           className="fixed inset-0 z-20 h-screen w-screen bg-stone-400 bg-opacity-50 dark:bg-stone-900 dark:bg-opacity-60"
@@ -66,7 +66,7 @@ export function WorkoutDetailsSectionContent({ workout }: Props) {
         onClick={() => setIsEditing(true)}
         className={twMerge(
           "box-border rounded-lg border border-transparent bg-inherit p-4",
-          isEditing && "z-20 border-amber-500 dark:border-red-500",
+          isEditing && "z-20 border-hover dark:border-dark-hover",
         )}
       >
         <div className="flex flex-col gap-4">
@@ -107,6 +107,14 @@ export function WorkoutDetailsSectionContent({ workout }: Props) {
           <div className="flex flex-col">
             <h1 className="text-xs font-bold text-secondary">CREATED</h1>
             <p>{workout.createdAt.toLocaleDateString()}</p>
+          </div>
+          <div className="flex flex-col">
+            <h1 className="text-xs font-bold text-secondary">TIMES COMPLETED</h1>
+            <p>{workout.timesCompleted}</p>
+          </div>
+          <div className="flex flex-col">
+            <h1 className="text-xs font-bold text-secondary">LAST COMPLETED</h1>
+            <p>{workout.lastCompletedAt?.toLocaleDateString() || "Not completed yet"}</p>
           </div>
         </div>
 

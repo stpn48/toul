@@ -1,7 +1,6 @@
 "use client";
 
 import { useModalVisibility } from "@/store/useModalVisiblity";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 type Props = {

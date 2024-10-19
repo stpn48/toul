@@ -26,7 +26,9 @@ export default function Select({ value, setValue, options, label, disableLabel, 
         onChange={handleSelectChange}
       >
         {options.map((option) => (
-          <option value={option}>{option}</option>
+          <option key={option} value={option}>
+            {option}
+          </option>
         ))}
       </select>
 

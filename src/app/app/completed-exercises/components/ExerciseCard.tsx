@@ -1,6 +1,5 @@
 "use client";
 
-import { useModalVisibility } from "@/store/useModalVisiblity";
 import { ExerciseWithSets } from "@/types/types";
 import React, { useState } from "react";
 import { ExerciseDetailsModal } from "./ExerciseDetailsModal";
