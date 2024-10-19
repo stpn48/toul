@@ -32,7 +32,7 @@ export async function addExercise(exercise: CreateExercise, workoutId: string) {
         userId: user.id,
       },
     });
-  } catch (error) {
+  } catch {
     return { error: "Error creating exercise" }; //TODO: Add better error handling
   }
 
