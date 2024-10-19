@@ -1,8 +1,10 @@
 import { ReactQueryProvider } from "@/components/ReactQueryProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
+
 import "./globals.css";
 
 const geistSans = localFont({
@@ -31,9 +33,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ReactQueryProvider>
           <ThemeProvider attribute="class" defaultTheme="light">
             {children}
-            <Toaster />
           </ThemeProvider>
         </ReactQueryProvider>
+        <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
