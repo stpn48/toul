@@ -24,7 +24,12 @@ type Props = {
 };
 
 export function ExerciseModal({ onSubmit, submitButtonText, closeModal, removeButton }: Props) {
-  const { showCreateSetModal, setEditingExerciseDetails, editingExerciseDetails: exerciseDetails } = useModalVisibility();
+  const {
+    showCreateSetModal,
+    setEditingExerciseDetails,
+    editingExerciseDetails: exerciseDetails,
+    setShowCreateExerciseModal,
+  } = useModalVisibility();
   const { removeOptimisticExercise } = useOptimisticWorkouts();
 
   const [exerciseName, setExerciseName] = useState<string>(exerciseDetails?.name || "");
@@ -132,7 +137,10 @@ export function ExerciseModal({ onSubmit, submitButtonText, closeModal, removeBu
         <ConfirmationModal
           message="Are you sure you want to discard all changes?"
           closeModal={() => setShowConfirmationModal(false)}
-          confirmAction={() => setEditingExerciseDetails(null)}
+          confirmAction={() => {
+            setEditingExerciseDetails(null);
+            setShowCreateExerciseModal(false);
+          }}
         />
       )}
     </Modal>
