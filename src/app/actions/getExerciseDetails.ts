@@ -24,7 +24,7 @@ export async function getExerciseDetails(exerciseId: string) {
       },
     });
     return exercises;
-  } catch (error) {
+  } catch {
     throw new Error("Error getting exercise details");
   }
 }
