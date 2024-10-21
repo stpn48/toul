@@ -68,7 +68,7 @@ export function EditSetModal({ closeModal, setExerciseSets, editingSetIndex, set
 
     // close modal
     closeModal();
-  }, [setExerciseSets, setName, targetRepsString, isWarmupSet]);
+  }, [setExerciseSets, setName, targetRepsString, isWarmupSet, closeModal, editingSetIndex]);
 
   const handleRemoveSet = useCallback(() => {
     setExerciseSets((prev) => {
@@ -80,7 +80,7 @@ export function EditSetModal({ closeModal, setExerciseSets, editingSetIndex, set
     });
 
     closeModal();
-  }, [editingSetIndex]);
+  }, [editingSetIndex, setExerciseSets, closeModal]);
 
   const handleCloseModal = useCallback(() => {
     if (madeChanges) {
@@ -88,7 +88,7 @@ export function EditSetModal({ closeModal, setExerciseSets, editingSetIndex, set
     } else {
       closeModal();
     }
-  }, [madeChanges]);
+  }, [madeChanges, setShowConfirmationModal, closeModal]);
 
   return (
     <Modal className="flex h-fit w-fit flex-col gap-4 p-10 px-[100px]" closeModal={handleCloseModal}>
