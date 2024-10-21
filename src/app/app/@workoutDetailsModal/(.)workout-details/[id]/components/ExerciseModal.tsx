@@ -80,8 +80,8 @@ export function ExerciseModal({ onSubmit, submitButtonText, closeModal, removeBu
   }, [madeChanges]);
 
   return (
-    <Modal className="flex h-[70%] w-[70%] flex-row text-sm" closeModal={handleCloseModal}>
-      <section className="w-[30%] rounded-l-lg bg-secondary p-6 text-main dark:bg-dark-secondary dark:text-dark-main">
+    <Modal className="flex h-[70%] w-[70%] flex-col text-sm lg:flex-row" closeModal={handleCloseModal}>
+      <section className="w-full rounded-l-lg bg-secondary p-6 text-main dark:bg-dark-secondary dark:text-dark-main lg:w-[30%]">
         <Input
           disableLabel
           value={exerciseName || ""}
