@@ -32,7 +32,7 @@ export function SetList({ exercise }: Props) {
     const isComplete = !loggedReps.includes(-1) && loggedReps.length === exercise.sets.length;
 
     setCanGoNext(isComplete);
-  }, [loggedExercises[exercise.name], exercise.id, exercise.sets.length, setCanGoNext, currExerciseIndex]);
+  }, [loggedExercises, exercise.name, exercise.id, exercise.sets.length, setCanGoNext, currExerciseIndex]);
 
   return (
     <div className="mt-4 flex flex-col gap-2">
