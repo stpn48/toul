@@ -2,15 +2,12 @@
 
 import { removeWorkout } from "@/app/actions/removeWorkout";
 import { ConfirmationModal } from "@/components/ConfirmationModal";
-import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { TrashIcon } from "./EditSetModal";
 
 export function DeleteWorkoutButton({ workoutId }: { workoutId: string }) {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-
-  const router = useRouter();
 
   const handleDeleteWorkout = useCallback(async () => {
     const response = await removeWorkout(workoutId);
@@ -19,7 +16,7 @@ export function DeleteWorkoutButton({ workoutId }: { workoutId: string }) {
       toast.error(response.error);
       return;
     }
-  }, [router, workoutId]);
+  }, [workoutId]);
 
   return (
     <div className="z-50">
