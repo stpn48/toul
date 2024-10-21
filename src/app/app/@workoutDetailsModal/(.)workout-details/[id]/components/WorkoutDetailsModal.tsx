@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import React, { useCallback } from "react";
 import toast from "react-hot-toast";
 import { DeleteWorkoutButton } from "./DeleteWorkoutButton";
-import { ExerciseList } from "./ExerciseList";
+import { ExerciseList, PlusIcon } from "./ExerciseList";
 import { ExerciseModal } from "./ExerciseModal";
 import { LogWorkoutModal } from "./LogWorkoutModal/LogWorkoutModal";
 import { WorkoutDetailsSectionContent } from "./WorkoutDetailsSectionContent";
@@ -125,13 +125,22 @@ export function WorkoutDetailsModal({ workout }: Props) {
   );
 
   return (
-    <Modal className="flex flex-row" closeModal={() => router.back()}>
-      <section className="flex w-[30%] flex-col gap-8 rounded-l-lg bg-secondary p-2 dark:bg-dark-secondary dark:text-dark-main">
+    <Modal className="flex flex-col lg:flex-row" closeModal={() => router.back()}>
+      <section className="relative flex w-full flex-col gap-8 rounded-l-lg bg-secondary p-2 dark:bg-dark-secondary dark:text-dark-main lg:w-[30%]">
         <WorkoutDetailsSectionContent workout={workout} />
         <DeleteWorkoutButton workoutId={workout.id} />
       </section>
-      <section className="relative h-full flex-grow rounded-r-lg p-4 dark:bg-dark">
+      <section className="relative flex-grow rounded-r-lg p-4 dark:bg-dark">
         <h1 className="text-xs font-bold text-secondary">EXERCISES</h1>
+        <div className="flex w-full justify-end">
+          <Button
+            onClick={() => setShowCreateExerciseModal(true)}
+            className="mt-4 flex items-center gap-2 rounded-full px-2 py-1 pr-3"
+          >
+            <PlusIcon />
+            Add Exercise
+          </Button>
+        </div>
         <ExerciseList workoutId={workout.id} />
         <Button onClick={() => setShowLogWorkoutModal(true)} className="absolute bottom-4 right-4">
           Log Workout
