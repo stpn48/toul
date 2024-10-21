@@ -25,7 +25,7 @@ export function WorkoutList() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex w-full flex-wrap gap-4">
+      <div className="flex w-full flex-wrap justify-center gap-4 md:justify-start">
         {filteredWorkouts.length === 0 && (
           <p className="flex w-full justify-center text-center text-xs text-secondary">No workouts found...</p>
         )}
