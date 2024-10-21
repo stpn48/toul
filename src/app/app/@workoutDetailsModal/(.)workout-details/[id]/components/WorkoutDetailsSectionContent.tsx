@@ -69,12 +69,12 @@ export function WorkoutDetailsSectionContent({ workout }: Props) {
           isEditing && "z-20 border-hover dark:border-dark-hover",
         )}
       >
-        <div className="flex flex-col gap-4">
-          <div>
+        <div className="flex flex-row flex-wrap gap-4 lg:flex-col">
+          <div className="w-full">
             <Input
               disableLabel
               placeholder="Workout Name"
-              className="border-0 bg-inherit px-0 pb-0 text-lg font-bold text-black dark:text-white"
+              className="w-full border-0 bg-inherit px-0 pb-0 text-lg font-bold text-black dark:text-white"
               value={workoutName || ""}
               onChange={(e) => {
                 setWorkoutName(e.target.value);
@@ -83,18 +83,18 @@ export function WorkoutDetailsSectionContent({ workout }: Props) {
             <Input
               disableLabel
               placeholder="Workout Description"
-              className="border-0 bg-inherit px-0 pt-0 text-black dark:text-white"
+              className="w-full border-0 bg-inherit px-0 pt-0 text-black dark:text-white"
               value={workoutDescription || ""}
               onChange={(e) => {
                 setWorkoutDescription(e.target.value);
               }}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex min-w-[150px] flex-col">
             <h1 className="text-xs font-bold text-secondary">DIFFICULTY</h1>
             <p>{workout.difficulty}</p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex min-w-[150px] flex-col">
             <h1 className="text-xs font-bold text-secondary">ESTIMATED DURATION</h1>
             <Select
               className="border-0 bg-inherit px-0"
@@ -104,15 +104,15 @@ export function WorkoutDetailsSectionContent({ workout }: Props) {
               options={["15 min", "30 min", "45 min", "60 min", "75 min", "90 min", "120 min"]}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex min-w-[150px] flex-col">
             <h1 className="text-xs font-bold text-secondary">CREATED</h1>
             <p>{workout.createdAt.toLocaleDateString()}</p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex min-w-[150px] flex-col">
             <h1 className="text-xs font-bold text-secondary">TIMES COMPLETED</h1>
             <p>{workout.timesCompleted}</p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex min-w-[150px] flex-col">
             <h1 className="text-xs font-bold text-secondary">LAST COMPLETED</h1>
             <p>{workout.lastCompletedAt?.toLocaleDateString() || "Not completed yet"}</p>
           </div>
