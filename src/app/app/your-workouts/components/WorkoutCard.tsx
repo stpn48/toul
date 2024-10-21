@@ -1,15 +1,25 @@
+"use client";
+
+import { useSidebarVisibility } from "@/components/Sidebar/use-sidebar-visibility";
 import { Workout } from "@prisma/client";
 import Link from "next/link";
-import React from "react";
+import React, { useCallback } from "react";
 
 type Props = {
   workout: Workout;
 };
 
 export function WorkoutCard({ workout }: Props) {
-  // TODO: Add ability to open workout details with Enter
+  const { setShowSidebar, isSmallDisplay } = useSidebarVisibility();
+
+  const handleClick = useCallback(() => {
+    if (isSmallDisplay) {
+      setShowSidebar(false);
+    }
+  }, [isSmallDisplay]);
+
   return (
-    <Link href={`/app/workout-details/${workout.id}`}>
+    <Link onClick={handleClick} href={`/app/workout-details/${workout.id}`}>
       <div
         tabIndex={0}
         role="button"
