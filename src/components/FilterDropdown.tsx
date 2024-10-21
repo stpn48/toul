@@ -39,7 +39,7 @@ export function FilterDropdown({ setFilter, closeDropdown }: Props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="absolute top-10 z-20 flex flex-col gap-2 rounded-lg border border-main bg-secondary p-4 text-sm dark:border-dark-main dark:bg-dark-secondary"
+        className="absolute right-0 top-10 z-20 flex w-fit flex-col gap-2 rounded-lg border border-main bg-secondary p-4 text-sm dark:border-dark-main dark:bg-dark-secondary md:left-0"
       >
         {filters.map((filter) => (
           <div key={filter}>
