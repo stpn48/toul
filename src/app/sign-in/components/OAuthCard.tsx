@@ -30,7 +30,7 @@ export function OAuthCard({ providerName, imgSrc, disabled, startSigningIn }: Pr
         router.push(url);
       }
     });
-  }, [providerName, startSigningIn]);
+  }, [providerName, startSigningIn, router]);
 
   return (
     <button
