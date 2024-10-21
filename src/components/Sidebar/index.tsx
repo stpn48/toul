@@ -7,7 +7,7 @@ import { UserDetails } from "./components/UserDetails";
 
 export function Sidebar() {
   return (
-    <SidebarContainer className="fixed flex h-screen w-[275px] flex-col gap-10 bg-secondary px-5 pb-4 pt-7 dark:bg-black">
+    <SidebarContainer className="fixed z-30 flex h-screen w-[275px] flex-col gap-10 bg-secondary px-5 pb-4 pt-7 dark:bg-black">
       <div className="flex w-full items-center justify-between">
         <UserDetails />
         <ToggleSidebarButton />

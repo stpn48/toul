@@ -14,7 +14,7 @@ export function Modal({ closeModal, className, transparentBackdrop, children }: 
     <div
       onClick={closeModal}
       className={twMerge(
-        "fixed inset-0 flex h-screen w-screen items-center justify-center bg-stone-900 bg-opacity-50 backdrop-blur-sm",
+        "fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-stone-900 bg-opacity-50 backdrop-blur-sm",
         transparentBackdrop && "bg-transparent",
       )}
     >
