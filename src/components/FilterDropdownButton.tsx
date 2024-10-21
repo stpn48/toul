@@ -22,12 +22,12 @@ export function FilterDropdownButton() {
   }, [filter, router]);
 
   return (
-    <div className="relative">
+    <div className="relative z-10">
       <button
         onClick={() => setShowDropdown(true)}
-        className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 dark:bg-dark-secondary"
+        className="z-10 flex items-center gap-2 rounded-full bg-secondary px-4 py-2 dark:bg-dark-secondary"
       >
-        <h1>{filter}</h1>
+        <h1 className="whitespace-nowrap">{filter}</h1>
       </button>
 
       <AnimatePresence>
