@@ -1,8 +1,6 @@
 "use client";
 
-import Button from "@/components/Button";
 import { useOptimisticWorkouts } from "@/context/useOptimisticWorkouts";
-import { useModalVisibility } from "@/store/useModalVisiblity";
 import { ExerciseWithSets } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { ExerciseCard } from "./ExerciseCard";
@@ -12,7 +10,6 @@ type Props = {
 };
 
 export function ExerciseList({ workoutId }: Props) {
-  const { setShowCreateExerciseModal } = useModalVisibility();
   const { optimisticExercises } = useOptimisticWorkouts();
 
   const [exercises, setExercises] = useState<ExerciseWithSets[]>([]);
@@ -22,13 +19,8 @@ export function ExerciseList({ workoutId }: Props) {
   }, [optimisticExercises, workoutId]);
 
   return (
-    <div className="mt-4 h-[90%] gap-4 overflow-y-auto text-main dark:text-dark-main">
-      <div className="flex w-full justify-end">
-        <Button onClick={() => setShowCreateExerciseModal(true)} className="flex items-center gap-2 rounded-full px-2 py-1 pr-3">
-          <PlusIcon />
-          Add Exercise
-        </Button>
-      </div>
+    <div className="relative mt-4 h-[40%] gap-4 overflow-y-auto border-y border-main text-main dark:border-dark-main dark:text-dark-main lg:h-[80%]">
+      <div className="flex w-full justify-end"></div>
       <div className="mt-4 flex flex-col gap-4">
         {exercises.length === 0 && <p className="flex w-full justify-center text-xs text-secondary">No exercises yet...</p>}
         {exercises.map((exercise) => (
